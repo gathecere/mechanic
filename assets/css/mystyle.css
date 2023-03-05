@@ -1,0 +1,359 @@
+.god{
+	padding-top: 120px !important;
+}
+
+.header-white {
+    position: absolute;
+    padding-top: 33px;
+    left: 0;
+    width: 100%;
+    z-index: 337;
+    background: white;
+}
+
+h1{
+	font-size: 47px !important;
+	font-weight: 500 !important;
+}
+.science{
+	color: #feb000 !important;
+}
+
+.deneb_cta .cta_wrapper {
+
+	margin-bottom:70px !important;
+
+}
+
+.sisi{
+    padding: 35px;
+   // text-align: center;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 2.5px 4.33px 15px 0px rgba(0, 0, 0, 0.15);
+    border: 3px dashed #fff;
+        border-top-color: rgb(255, 255, 255);
+        border-right-color: rgb(255, 255, 255);
+        border-bottom-color: rgb(255, 255, 255);
+        border-left-color: rgb(255, 255, 255);
+    -webkit-transition: all 0.5s ease-out 0s;
+    -moz-transition: all 0.5s ease-out 0s;
+    -ms-transition: all 0.5s ease-out 0s;
+    -o-transition: all 0.5s ease-out 0s;
+    transition: all 0.5s ease-out 0s;
+}
+
+#other{
+	display: none;
+}
+
+                           .stv-radio-buttons-wrapper {
+                                       //clear: both;
+                                       display: flex;
+                                       align-content: space-between;
+                                       //justify-content: space-between;
+                                       //flex-basis: content;
+                                        flex-wrap: nowrap;
+                                        align-items: stretch;
+                                        justify-content: center;
+                                        flex-grow: 1;
+
+
+                                       
+                                       }
+                                     .stv-radio-button {
+                                       position: absolute;
+                                       left: -9999em;
+                                       top: -9999em;
+                                      // width: 33% !important;
+
+                                    }
+                                     .stv-radio-button + label {
+                                       float: left;
+                                       padding: 0.5em 1em;
+                                       cursor: pointer;
+                                       border: 1px solid #5C5C5C;
+                                       margin-right: -1px;
+                                       color: #fff;
+                                       background-color: #5C5C5C;
+                                    }
+                                     .stv-radio-button + label:first-of-type {
+                                       border-radius: 0.7em 0 0 0.7em;
+                                    }
+                                     .stv-radio-button + label:last-of-type {
+                                       border-radius: 0 0.7em 0.7em 0;
+                                    }
+                                     .stv-radio-button:checked + label {
+                                       background-color: #0674ec;
+                                       border-color: #0674ec;
+                                    }
+  @media screen and (max-width: 1200px) {
+     .stv-radio-button + label {
+                                       
+                                       padding: 0.3em 0.7em;
+
+                                }
+
+  
+}
+
+@media screen and (max-width: 368px) {
+     .stv-radio-button + label {
+                                       
+                                       padding: 0.3em 0.4em;
+
+                                }
+
+  
+}
+@media screen and (max-width: 344px) {
+     .stv-radio-button + label {
+                                       
+                                       padding: 0.3em 0.4em;
+                                       font-size: 12px;
+
+                                }
+
+  
+}
+
+select{
+ display: block;
+width: 100%;
+padding: 0.65rem 2.25rem 0.65rem 1.25rem;
+font-size: 0.93rem;
+font-weight: 400;
+line-height: 1.7;
+color: #726f84;
+vertical-align: middle;
+background-color: #ffffff;
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23101010' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+background-repeat: no-repeat;
+background-position: right 1.25rem center;
+background-size: 16px 12px;
+border: 1px solid #cbd5e0;
+border-radius: 0.25rem;
+appearance: none;
+}
+
+
+
+.hero-three .row {
+    min-height: 0vh !important;
+}
+
+.hero-three{
+  padding-top: 190px !important; 
+}
+
+.form-wrapper{
+
+     background: #ffffff;
+     padding:10px 5px 10px 40px;
+     border-radius: 9px;
+     box-shadow: 0px 0px 20px 0px rgba(181, 181, 181, 0.2);
+
+}
+#crew{
+  color: white !important;
+}
+.faqHeader {
+        font-size: 27px;
+        margin: 20px;
+    }
+
+    .panel-heading [data-toggle="collapse"]:after {
+        font-family: 'fontawesome';
+        content: "\f054"; /* "play" icon */
+        float: right;
+        color: #F58723;
+        font-size: 18px;
+        line-height: 22px;
+        /* rotate "play" icon from > (right arrow) to down arrow */
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+    }
+
+    .panel-heading [data-toggle="collapse"].collapsed:after {
+        /* rotate "play" icon from > (right arrow) to ^ (up arrow) */
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+        color: #454444;
+    }
+
+    .panel-heading{
+      background: #fcfcfc;
+      padding:20px 5px; 
+    }
+
+    .panel-title a{
+      color: #011a3e;
+    }
+
+    .testimonial-three .testimonial {
+      height:500px !important;
+    }
+   
+   .help-block{
+       color: orange !important;
+   }
+
+   #myDropzone, #myDropzonespecial{
+
+    background: #E0EEEE;
+}
+
+
+#loginform #total{
+    border:none !important;
+   
+    font-size: 30px;
+    font-weight: 600;
+    //margin-top: -7px;
+}
+
+#msform #total{
+    border:none !important;
+    background: white !important;
+    font-size: 30px;
+    font-weight: 600;
+   // margin-top: -12px;
+}
+
+.error{
+  color: orange !important;
+}
+
+#lizz{
+
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(60,94,124,1) 0%, rgba(0,212,255,1) 100%);
+}
+
+.white{
+  color: white !important;
+}
+
+@media only screen and (max-width: 767px) and (min-width: 400px){
+.form-wrapper .row {
+    min-height: 0vh !important;
+    padding: 0px 0px 0px !important;
+   }
+}
+
+.prefix {
+    margin-right: -10px;
+    position: absolute;
+    padding-top: 18px;
+    color: #718096;
+    font-weight: 800;
+}
+
+.how{
+
+     margin: 20px 0px;
+}
+
+.ouch{
+
+     margin: 50px 0px;
+}
+.ok{
+  padding: 70px 0px;  
+}
+
+#here {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("./../../static/img/l.webp") !important;
+    //height: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+   // height: 900px;
+    color: white !important;
+}
+
+#loginform {
+
+    background: #ffffff;
+    padding: 10px 15px;
+    border-radius: 10px;
+    width: 90%;
+    position: relative;
+   
+
+
+
+}
+
+
+   
+   #loginform .btn-default{
+
+      border: 1px solid #cbd5e0;  
+
+   }
+
+   #crew{
+      width: 100%;
+      margin-top: -10px;
+   }
+
+
+    .left{
+      text-align: left !important;
+    }
+
+   
+
+    .slick-prev:before,
+.slick-next:before {
+    
+    color:#d98718 !important;
+    font-size: 20px !important;
+}
+#momo{
+   color: #F7F7F7 !important;
+}
+
+@media screen and (max-width: 992px) {
+
+       .oly {
+                  margin-top: 100px !important;
+            }
+
+
+
+        #loginform {
+
+                      position: relative;
+
+                      text-align: center;
+
+                    }
+
+           #loginform {
+
+               
+                width: 100%;
+   
+
+
+
+              }
+
+            .ps-4 {
+                padding-left: 1.5rem !important;
+                margin-top: 20px;
+            }
+ 
+
+
+  
+}
