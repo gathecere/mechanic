@@ -22,6 +22,17 @@
 
            }
 
+             public function get_mechanics() {
+
+                $this->db->select('*');
+                $this->db->from('mechanic');
+      
+                return $this->db->get()->result();
+                
+                
+
+           }
+
              public function get_inventory() {
 
                 $this->db->select('inventory.inventory_id, spare_name,((select ifnull(sum(quantity_in),0) from stock_tracker where inventory.inventory_id=stock_tracker.inventory_id)-(select ifnull(sum(quantity_out),0) from stock_tracker where inventory.inventory_id=stock_tracker.inventory_id)) as inventory_balance');
@@ -169,6 +180,14 @@
 
           }
 
+            public function insert_mechanic($data)
+          {
+
+             $this->db->insert('mechanic',$data);
+
+
+          }
+
 
 
 
@@ -177,6 +196,22 @@
           {
 
               $this->db->delete('stop', array('stop_id' => $id)); 
+
+
+          }
+
+           public function delete_mechanic($id)
+          {
+
+              $this->db->delete('mechanic', array('id' => $id)); 
+
+
+          }
+
+            public function delete_entry($id)
+          {
+
+              $this->db->delete('repair_entry', array('entry_id' => $id)); 
 
 
           }

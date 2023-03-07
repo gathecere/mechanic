@@ -63,6 +63,17 @@ function __construct()
              
   }
 
+     public function mechanics()
+  {
+         $data['mechanics']=$this->Adminmodel->get_mechanics();
+
+
+         $this->load->view('admin/header',$data);
+         $this->load->view('admin/mechanics',$data);
+         $this->load->view('admin/footer',$data);
+             
+  }
+
 
     public function inventory()
   {
@@ -107,6 +118,34 @@ function __construct()
 
          $this->load->view('admin/header',$data);
          $this->load->view('admin/stops',$data);
+         $this->load->view('admin/footer',$data);
+
+
+
+
+  }
+
+   public function add_mechanic(){
+     
+
+        $mechanic_name=$this->input->post('mechanic_name');
+        $level=$this->input->post('experience');
+
+
+        $update_arr=array(
+                           'name'=>$mechanic_name,
+                           'level'=>$level,
+                         );
+
+        $this->Adminmodel->insert_mechanic($update_arr);
+
+        $data['mechanics']=$this->Adminmodel->get_mechanics();
+        $data['message']="mechanic successfully added";
+
+
+
+         $this->load->view('admin/header',$data);
+         $this->load->view('admin/mechanics',$data);
          $this->load->view('admin/footer',$data);
 
 
@@ -282,6 +321,55 @@ function __construct()
 
          $this->load->view('admin/header',$data);
          $this->load->view('admin/stops',$data);
+         $this->load->view('admin/footer',$data);
+
+
+
+
+  }
+
+  public function delete_mechanic(){
+     
+
+        $mech_id=$this->uri->segment(3);
+
+
+        
+
+        $this->Adminmodel->delete_mechanic($mech_id);
+
+        $data['mechanics']=$this->Adminmodel->get_mechanics();
+        $data['message']="mechanic successfully deleted";
+
+
+
+         $this->load->view('admin/header',$data);
+         $this->load->view('admin/mechanics',$data);
+         $this->load->view('admin/footer',$data);
+
+
+
+
+  }
+
+   public function delete_entry(){
+     
+
+        $entry_id=$this->uri->segment(3);
+
+
+        
+
+        $this->Adminmodel->delete_entry($entry_id);
+
+        $data['repairs']=$this->Adminmodel->get_entries();
+
+        $data['message']="entry successfully deleted";
+
+
+
+         $this->load->view('admin/header',$data);
+         $this->load->view('admin/repairs',$data);
          $this->load->view('admin/footer',$data);
 
 

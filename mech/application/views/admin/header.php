@@ -68,12 +68,13 @@
                         <div class="menu-title">Stops</div>
                     </a>
                 </li>
-                 <li>
-                    <a href="<?= base_url('admin/inventory'); ?>">
+                <li>
+                    <a href="<?= base_url('admin/mechanics'); ?>">
                       
-                        <div class="menu-title">Inventory</div>
+                        <div class="menu-title">Mechanics</div>
                     </a>
                 </li>
+                
 
                 <li class="menu-label">Reports</li>
                   <li>
