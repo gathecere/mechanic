@@ -25,6 +25,8 @@ function __construct()
 
                 // Load database
                 $this->load->model('Adminmodel');
+
+                 $this->load->model('Designmodel');
                 
                 $this->load->helper('form');
 
@@ -67,6 +69,28 @@ function __construct()
   {
          $data['mechanics']=$this->Adminmodel->get_mechanics();
 
+       
+           $i=0;
+
+          foreach($data['mechanics'] as $lob){
+
+                $mechanic_id=$lob->id;
+
+                $data['stops']=$this->Adminmodel->get_mechanic_stops($mechanic_id);
+
+               
+                $data['mechanics'][$i]->stops= $data['stops'];
+
+                $i++;
+
+               // print_r($data['mechanics']); die();
+
+
+
+          }
+
+          $data['stops']=$this->Adminmodel->get_stops();
+
 
          $this->load->view('admin/header',$data);
          $this->load->view('admin/mechanics',$data);
@@ -102,11 +126,18 @@ function __construct()
 
         $stop_name=$this->input->post('stop_name');
         $stop_details=$this->input->post('stop_details');
+        $sequence=$this->input->post('sequence');
+
+        $res=$this->Adminmodel->check_sequence($sequence);
+
+        if($res=='ok'){
+
 
 
         $update_arr=array(
                            'stop_name'=>$stop_name,
                            'stop_details'=>$stop_details,
+                           'sequence'=>$sequence,
                          );
 
         $this->Adminmodel->insert_stop($update_arr);
@@ -120,6 +151,22 @@ function __construct()
          $this->load->view('admin/stops',$data);
          $this->load->view('admin/footer',$data);
 
+        }
+        else
+        {
+
+             $data['stops']=$this->Adminmodel->get_stops();
+             $data['message']="Rest sequence already in the system";
+
+
+
+             $this->load->view('admin/header',$data);
+             $this->load->view('admin/stops',$data);
+             $this->load->view('admin/footer',$data);
+
+
+        }
+
 
 
 
@@ -130,16 +177,66 @@ function __construct()
 
         $mechanic_name=$this->input->post('mechanic_name');
         $level=$this->input->post('experience');
+        $phone=$this->input->post('phone');
+        $stop_ids=$this->input->post('stop_id');
+
+       // $ins=array();
+
+
+
+
+
+      // print_r($stops); die();
+
 
 
         $update_arr=array(
                            'name'=>$mechanic_name,
                            'level'=>$level,
+                           'phone'=>$phone,
                          );
 
-        $this->Adminmodel->insert_mechanic($update_arr);
+        $mechanic_id=$this->Adminmodel->insert_mechanic($update_arr);
+
+
+         foreach($stop_ids as $stop_id){
+
+                $ins=array(
+                             'stop_id'=>$stop_id,
+                             'mechanic_id'=>$mechanic_id,
+                          );
+
+
+             $this->Adminmodel->insert_mechanic_stops($ins);
+
+
+
+        }
+
+
 
         $data['mechanics']=$this->Adminmodel->get_mechanics();
+         $i=0;
+
+          foreach($data['mechanics'] as $lob){
+
+                $mechanic_id=$lob->id;
+
+                $data['stops']=$this->Adminmodel->get_mechanic_stops($mechanic_id);
+
+               
+                $data['mechanics'][$i]->stops= $data['stops'];
+
+                $i++;
+
+               // print_r($data['mechanics']); die();
+
+
+
+          }
+
+        $data['stops']=$this->Adminmodel->get_stops();
+
         $data['message']="mechanic successfully added";
 
 
@@ -339,7 +436,28 @@ function __construct()
         $this->Adminmodel->delete_mechanic($mech_id);
 
         $data['mechanics']=$this->Adminmodel->get_mechanics();
+
+         $i=0;
+
+          foreach($data['mechanics'] as $lob){
+
+                $mechanic_id=$lob->id;
+
+                $data['stops']=$this->Adminmodel->get_mechanic_stops($mechanic_id);
+
+               
+                $data['mechanics'][$i]->stops= $data['stops'];
+
+                $i++;
+
+               // print_r($data['mechanics']); die();
+
+
+
+          }
         $data['message']="mechanic successfully deleted";
+                  $data['stops']=$this->Adminmodel->get_stops();
+
 
 
 
@@ -362,7 +480,14 @@ function __construct()
 
         $this->Adminmodel->delete_entry($entry_id);
 
-        $data['repairs']=$this->Adminmodel->get_entries();
+       
+        $data['stops'] = $this->Designmodel->get_stops();
+        $data['spares'] = $this->Designmodel->get_spares();
+        $data['status'] = $this->Designmodel->get_repair_status();
+        $data['mechanics'] = $this->Designmodel->get_mechanics();
+        $data['types'] = $this->Designmodel->get_repair_types();
+
+        $data['repair_details'] = $this->Designmodel->get_repair_details();
 
         $data['message']="entry successfully deleted";
 
@@ -409,12 +534,18 @@ function __construct()
 
         //$stop_id=$this->uri->segment(3);
 
-
+         ///echo "here"; die();
         
 
        // $this->Adminmodel->delete_stop($stop_id);
 
-        $data['repairs']=$this->Adminmodel->get_entries();
+        $data['stops'] = $this->Designmodel->get_stops();
+        $data['spares'] = $this->Designmodel->get_spares();
+        $data['status'] = $this->Designmodel->get_repair_status();
+        $data['mechanics'] = $this->Designmodel->get_mechanics();
+        $data['types'] = $this->Designmodel->get_repair_types();
+
+        $data['repair_details'] = $this->Designmodel->get_repair_details();
 
 
 

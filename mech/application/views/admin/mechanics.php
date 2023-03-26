@@ -1,3 +1,5 @@
+<section>
+<div class="container">
 <div class="page-wrapper">
       <div class="page-content">
         <!--breadcrumb-->
@@ -6,7 +8,7 @@
           <div class="ps-3">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                <li class="breadcrumb-item"><a href="javascript:;">Admin</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Mechanics</li>
               </ol>
@@ -17,8 +19,7 @@
         <!--end breadcrumb-->
         <div class="row">
           <div class="col-xl-9 mx-auto">
-            <h6 class="mb-0 text-uppercase">Stops</h6>
-            <span style="float: right; position:relative; right:90px; bottom:30px;"><a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#mechanicModal"><i class="fa fa-plus"></i>Add Mechanic</a></span>
+            <span style="float: right; position:relative; right:90px; bottom:30px;"><a class="btn btn-success" data-toggle="modal" data-target="#mechanicModal"><i class="fa fa-plus"></i>Add Mechanic</a></span>
             <hr/>
               <div class="card">
                  <div class="card-body">
@@ -51,8 +52,14 @@
                                                           
                                                            
                                                             <th>Name </th>
+
+                                                             <th>Phone </th>
+
+
                                                             
-                                                            <th>Designation</th>
+                                                            <th>Skill Level</th>
+
+                                                            <th>Stops</th>
                                                            
                                                             <th>Delete</th>
                                                         </tr>
@@ -68,9 +75,13 @@
                                                             
                                                               <td><?php if(isset($row->name)) { echo $row->name;  }   ?></td>
 
+                                                              <td><?php if(isset($row->phone)) { echo $row->phone;  }   ?></td>
+
                                                                <td><?php if(isset($row->level)) {  
 
-                                                                    if($row->level==1){  echo "master mechanic";  } else { echo "Junior mechanic"; }  } ?></td>
+                                                                    if($row->level==1){  echo "Master";  } else { echo "Apprentice"; }  } ?></td>
+
+                                                                <td><?php if(isset($row->stops)) { echo $row->stops;  }   ?></td>
                                                              
 
                                                                
@@ -121,18 +132,29 @@
 
                 <!-- Footer Start -->
 
-                <div class="modal fade" id="mechanicModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              
+        </div>
+  </div>
+</section>
+
+   <div class="modal fade" id="mechanicModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">Add Mechanic</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">Close</button>
                     </div>
                     <div class="modal-body">
                         <form method="post" action="<?= base_url('admin/add_mechanic') ?>">
 
                            <div class="row mb-3">
-                                <label class="col-form-label" for="example-password">Mechanic Name</label>
+
+                                  <div class="col-sm-12">
+                                  
+                               
+                                  <label class="col-form-label" for="example-password">Mechanic Name</label>
+
+                                   </div>
                                
                                   <div class="col-sm-12">
                                   
@@ -144,15 +166,60 @@
                                                        
                             </div>
 
-                             <div class="row mb-3">
-                                <label class="col-form-label" for="example-password">Experience</label>
+                              <div class="row mb-3">
+                                <div class="col-sm-12">
+                                   <label class="col-form-label" for="example-password">Phone</label>
+                                 </div>
                                
                                   <div class="col-sm-12">
                                   
-                                       <select class="form-control" name="experience">
+                                      <input class="form-control" type="text" name="phone" required>
+                                    
+                                  </div>
+                                                       
+                                                       
+                                                       
+                            </div>
 
-                                          <option value="1">Master mechanic</option>
-                                          <option value="2">Junior mechanic</option>
+                                 <div class="row mb-3">
+                              <div class="col-sm-12 mb-3">
+                                <label class="col-form-label" for="example-password">Stop</label>
+                               </div>
+                               
+                                  <div class="col-sm-12">
+                                  
+                                       <select class="form-control" id="stop_id" name="stop_id[]" multiple required style="width: 100%;">
+
+                                        <?php
+                                           foreach($stops as $stop){
+
+                                         ?>
+
+                                          <option value="<?= $stop->stop_id ?>"><?= $stop->stop_name ?></option>
+
+                                        <?php } ?>
+                                        
+                                         
+                                       </select>
+                                    
+                                  </div>
+                                                       
+                                                       
+                                                       
+                            </div>
+                            <br>
+
+                             <div class="row mb-3">
+                              <div class="col-sm-12 mb-3">
+                                <label class="col-form-label" for="example-password">Skill Level</label>
+                              </div>
+                               
+                                  <div class="col-sm-12">
+                                  
+                                       <select class="form-control" name="experience" required>
+
+                                          <option value="1">Apprentice</option>
+                                          <option value="2">Master</option>
                                          
                                        </select>
                                     
@@ -174,5 +241,5 @@
                   </div>
                 </div>
               </div>
-               
+
      

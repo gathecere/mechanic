@@ -15,6 +15,7 @@
 
                 $this->db->select('*');
                 $this->db->from('stop');
+                $this->db->order_by('sequence','ASC');
       
                 return $this->db->get()->result();
                 
@@ -26,8 +27,60 @@
 
                 $this->db->select('*');
                 $this->db->from('mechanic');
+              //  $this->db->join('mechanic_stop', 'mechanic.id=mechanic_stop.mechanic_id','left');
+
       
                 return $this->db->get()->result();
+                
+                
+
+           }
+
+              public function check_sequence($sequence) {
+
+                $this->db->select('*');
+                $this->db->from('stop');
+                $this->db->where('sequence', $sequence);
+
+      
+                $num=$this->db->get()->num_rows();
+
+                if($num>0){
+
+                      return "waah";
+                }
+                else
+                {
+                    return "ok";
+                }
+                
+                
+
+           }
+
+
+             public function get_mechanic_stops($mechanic_id) {
+
+                $this->db->select('*');
+                $this->db->from('mechanic_stop');
+                $this->db->join('stop', 'stop.stop_id=mechanic_stop.stop_id','left');
+                $this->db->where('mechanic_id', $mechanic_id);
+                $stops=$this->db->get()->result();
+
+                $arr=array();
+
+                foreach($stops as $stop){
+
+
+                            array_push($arr,$stop->stop_name);
+
+
+
+                }
+
+                $str=implode(',',$arr);
+
+                return $str;
                 
                 
 
@@ -184,6 +237,15 @@
           {
 
              $this->db->insert('mechanic',$data);
+              return $this->db->insert_id();
+
+
+          }
+
+          public function insert_mechanic_stops($data)
+          {
+
+             $this->db->insert('mechanic_stop',$data);
 
 
           }

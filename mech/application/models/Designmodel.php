@@ -11,11 +11,73 @@
            public function get_stops()
           {
 
-                $this->db->select('*');
+                $this->db->select('*,COUNT(mechanic_stop.stop_id) as wangapi');
                 $this->db->from('stop');
+                $this->db->join('mechanic_stop', 'mechanic_stop.stop_id=stop.stop_id','left');
+                $this->db->group_by('stop.stop_id');
+
                 return $this->db->get()->result();
                
           }
+
+           public function get_mechanics()
+          {
+
+                $this->db->select('*');
+                $this->db->from('mechanic');
+                return $this->db->get()->result();
+               
+          }
+
+             public function get_repair_types()
+          {
+
+                $this->db->select('*');
+                $this->db->from('repair_type');
+                return $this->db->get()->result();
+               
+          }
+
+           public function get_repair_details()
+            {
+                $this->db->select('*');
+                $this->db->from('repair_entry');
+                $this->db->join('stop', 'repair_entry.stop_id=stop.stop_id','left');
+                $this->db->join('status', 'repair_entry.status=status.status_id','left');
+                $this->db->join('mechanic', 'repair_entry.mechanic_id=mechanic.id','left');
+                $this->db->join('repair_type', 'repair_entry.type_id=repair_type.type_id','left');
+
+               
+               
+
+                $query = $this->db->get()->result();
+                
+                return $query;
+                     
+                
+            }
+
+
+              public function get_repair_details_edit($entry_id)
+            {
+                $this->db->select('*');
+                $this->db->from('repair_entry');
+                $this->db->join('stop', 'repair_entry.stop_id=stop.stop_id','left');
+                $this->db->join('status', 'repair_entry.status=status.status_id','left');
+                $this->db->join('mechanic', 'repair_entry.mechanic_id=mechanic.id','left');
+                $this->db->join('repair_type', 'repair_entry.type_id=repair_type.type_id','left');
+                $this->db->where('entry_id', $entry_id);
+
+               
+               
+
+                $query = $this->db->get()->result();
+                
+                return $query;
+                     
+                
+            }
+
 
             public function get_spares()
           {
@@ -79,6 +141,17 @@
           }
 
 
+            public function update_rev($id,$dasa)
+
+            {
+
+                $this->db->where('order_id', $id);
+
+                $this->db->update('tbl_order',$dasa); 
+
+            }
+
+
            public function insert_tips($data) {
 
                  $this->db->insert('tbl_tip', $data);
@@ -91,13 +164,13 @@
 
           }
 
-              public function update_rev($id,$dasa)
+              public function edit_repair_process($id,$dasa)
 
             {
 
-                $this->db->where('order_id', $id);
+                $this->db->where('entry_id', $id);
 
-                $this->db->update('tbl_order',$dasa); 
+                $this->db->update('repair_entry',$dasa); 
 
             }
 

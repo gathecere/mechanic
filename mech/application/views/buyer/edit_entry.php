@@ -4,13 +4,13 @@
       <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-          <div class="breadcrumb-title pe-3">Repair information</div>
+          <div class="breadcrumb-title pe-3">Update Repair Details</div>
           <div class="ps-3">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="javascript:;">Admin</a>
+                <li class="breadcrumb-item"><a href="javascript:;">Manager</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Repair information</li>
+                <li class="breadcrumb-item active" aria-current="page">Update Repair Details</li>
               </ol>
             </nav>
           </div>
@@ -27,7 +27,6 @@
                  <div class="card-body">
 
                                       <?php
-
                                         if(isset($message)){ ?>
 
                                           <div class="alert alert-info">
@@ -44,111 +43,20 @@
 
 
                                       ?>
-                                       
-                                       
-    
-                                        <div class="table-responsive">
-                                            <table class="table table-striped mb-0" id="example">
-                                                <thead>
-                                                      <tr>
-                                                            <th>#</th>
-                                                          
-                                                           
-                                                            <th>Rider </th>
 
-                                                            <th>Stop </th>
+                                     <?php
 
+                                          foreach($h as $wah){
 
-                                                            
-                                                            <th>Mechanic</th>
+                                        ?>
 
-                                                            <th>Type of Repir</th>
+                                       <form method="post" action="<?= base_url('mechanic/edit_repair_process'); ?>">
 
-                                                            <th>Duration(mins)</th>
-
-                                                            <th>Repair Status</th>
-
-                                                           
-                                                            <th>Delete</th>
-                                                        </tr>
-                                                </thead>
-                                                <tbody>
-                                                  
-                                                      <?php
-                                                          foreach ($repair_details as $row)
-                                                          {   ?>
-                                                          <tr>
-                                                              <td><?= $row->entry_id; ?></a></td>
-                                                             
-                                                            
-                                                              <td><?php if(isset($row->rider_name)) { echo $row->rider_name;  }   ?></td>
-
-                                                              <td><?php if(isset($row->stop_name)) { echo $row->stop_name;  }   ?></td>
-
-                                                              <td><?php if(isset($row->name)) { echo $row->name;  }   ?></td>
-
-                                                                <td><?php if(isset($row->repair_type)) { echo $row->repair_type;  }   ?></td>
-
-                                                              <td><?php if(isset($row->time)) { echo $row->time;  }   ?></td>
-
-                                                                <td><?php if(isset($row->status_name)) { echo $row->status_name;  }   ?></td>
-
-
-                                                              
-
-                                                              
-                                                             
-
-                                                               
-
-                                                                 <td><a href="<?php echo base_url('admin/delete_entry/').$row->entry_id; ?>"><button class="btn btn-danger btn-sm">Delete Entry</button></a></td>
-
-                                                                
-
-                                                              
-                                                              
-                                                              
-                                                           
-                                                          </tr>
-                                                         <?php } ?>
-                                                   
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                              </div>
-                           
-                          
-                        </div>
-                       
-
-
-
-
-
-       <div class="modal fade" id="mechanicModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content"> 
-                       <div class="modal-header">  
-                      
-                          <h4 class="mb-0 text-uppercase">Add Repair Details</h4>
-                          <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">exit</button>
-                         </div>
-
-                         <div class="modal-body" style="padding: 20px 40px;">  
-                                  
-                                    
-
-
-                                        
-                                       
-                                        <div class="row">
-                                            <form method="post" action="<?= base_url('mechanic/update_repair_process'); ?>">
+                                         <input type="hidden" name="entry_id" value="<?= $wah->entry_id; ?>">
                                                      <div class="row mb-3">
                                                       <label class="col-sm-3 col-form-label" for="example-email">Rider</label>
                                                         <div class="col-sm-9">
-                                                            <input class="form-control" type="text" name="name" required>
+                                                            <input class="form-control" type="text" name="name" value="<?= $wah->rider_name ?>" required>
                                                         </div>
                                                     </div>
                                                     <br>
@@ -165,7 +73,7 @@
 
                                                                     { ?>
 
-                                                                    <option  value="<?php echo $stop->stop_id; ?>"><?php echo $stop->stop_name.' '.$stop->wangapi.' available mechs'; ?></option>
+                                                                    <option  value="<?php echo $stop->stop_id; ?>" <?php if($stop->stop_id==$wah->stop_id){ echo "selected";} ?>><?php echo $stop->stop_name.' '.$stop->wangapi.' available mechs'; ?></option>
 
                                                                <?php } ?>
                                                             </select>
@@ -185,7 +93,7 @@
 
                                                                     { ?>
 
-                                                                    <option  value="<?php echo $mechanic->id; ?>"><?php echo $mechanic->name; ?></option>
+                                                                    <option  value="<?php echo $mechanic->id; ?>" <?php if($mechanic->id==$wah->mechanic_id){ echo "selected";} ?>><?php echo $mechanic->name; ?></option>
 
                                                                <?php } ?>
                                                             </select>
@@ -205,7 +113,7 @@
 
                                                                     { ?>
 
-                                                                    <option  value="<?php echo $type->type_id; ?>"><?php echo $type->repair_type; ?></option>
+                                                                    <option  value="<?php echo $type->type_id; ?>" <?php if($type->type_id==$wah->type_id){ echo "selected";} ?>><?php echo $type->repair_type; ?></option>
 
                                                                <?php } ?>
                                                             </select>
@@ -217,18 +125,18 @@
                                                    
     
                                                   
-                                                    <div class="row mb-3">
-                                                        <label class="col-sm-3 col-form-label" for="example-password">Duration(mins)</label>
-                                                       
-                                                          <div class="col-sm-9">
-                                                          
-                                                              <input class="form-control" type="number" name="time"   min="1"  max="100">
-                                                            
-                                                           </div>
-                                                       
-                                                       
-                                                       
-                                                    </div>
+                                            <div class="row mb-3">
+                                                <label class="col-sm-3 col-form-label" for="example-password">Duration(mins)</label>
+                                               
+                                                  <div class="col-sm-9">
+                                                  
+                                                 <input class="form-control" type="number" name="time" value="<?= $wah->time; ?>" >
+                                                    
+                                                   </div>
+                                               
+                                               
+                                               
+                                            </div>
                                                      <br>
 
                                                      <div class="row mb-3">
@@ -245,7 +153,7 @@
 
                                                                                         { ?>
 
-                                                                                        <option  value="<?php echo $st->status_id; ?>"><?php echo $st->status_name;  ?></option>
+                                                                                        <option  value="<?php echo $st->status_id; ?>" <?php if($st->status_id==$wah->status){ echo "selected";} ?>><?php echo $st->status_name;  ?></option>
 
                                                                                    <?php } ?>
                                                                 </select>
@@ -262,7 +170,7 @@
                                                       </div>
                                                       <div class="col-sm-9">
 
-                                                         <button style="width: 100%;" id="submit-all" type="submit" class="btn btn-warning px-5"><i class="bx bx-plus"></i>Add Repair Details</button>
+                                                         <button style="width: 100%;" id="submit-all" type="submit" class="btn btn-warning px-5"><i class="bx bx-plus"></i>Update Repair Details</button>
 
                                                         </div>
 
@@ -272,16 +180,26 @@
 
 
                                                 </form>
-                                            </div>
-                                       </div>
-    
-                                           
-                                        </div>
-                                        <!-- end row -->
-    
-                                    </div>
 
+                                            <?php } ?>
+    
+                                       
+                                       
+    
+                                      
+                                    </div>
                                 </div>
+                              </div>
+                           
+                          
+                        </div>
+                       
+
+
+
+
+
+    
 
 
                         
