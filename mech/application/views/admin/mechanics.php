@@ -142,7 +142,7 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">Add Mechanic</h5>
-                      <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">Close</button>
+                      <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close">Exit</button>
                     </div>
                     <div class="modal-body">
                         <form method="post" action="<?= base_url('admin/add_mechanic') ?>">

@@ -8,7 +8,7 @@
           <div class="ps-3">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                <li class="breadcrumb-item"><a href="javascript:;">Admin</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Rest Stops</li>
               </ol>
@@ -133,13 +133,15 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">Add Rest Stop</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                      <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close">Exit</button>
                     </div>
                     <div class="modal-body">
                         <form method="post" action="<?= base_url('admin/add_stop') ?>">
 
                            <div class="row mb-3">
-                                <label class="col-form-label" for="example-password">Stop Name</label>
+                                 <div class="col-sm-12">
+                                   <label class="col-form-label" for="example-password">Stop Name</label>
+                                  </div>
                                
                                   <div class="col-sm-12">
                                   
@@ -152,7 +154,9 @@
                             </div>
 
                             <div class="row mb-3">
+                              <div class="col-sm-12">
                                 <label class="col-form-label" for="example-password">Stop Address</label>
+                               </div>
                                
                                   <div class="col-sm-12">
                                   
@@ -165,7 +169,9 @@
                             </div>
 
                              <div class="row mb-3">
+                              <div class="col-sm-12">
                                 <label class="col-form-label" for="example-password">Sequence</label>
+                               </div>
                                
                                   <div class="col-sm-12">
                                   
