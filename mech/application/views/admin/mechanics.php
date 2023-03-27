@@ -62,6 +62,8 @@
                                                             <th>Available On</th>
 
                                                             <th>Stops</th>
+
+                                                             <th>See repairs</th>
                                                            
                                                             <th>Delete</th>
                                                         </tr>
@@ -87,7 +89,7 @@
 
                                                                 <td><?php if(isset($row->stops)) { echo $row->stops;  }   ?></td>
 
-
+                                                                  <td><a href="<?= base_url('admin/see_repairs/'.$row->id); ?>">Select repairs</a></td>
                                                              
 
                                                                

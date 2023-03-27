@@ -61,6 +61,32 @@
                 
             }
 
+            public function get_repair_details_mech($mech_id)
+            {
+                $this->db->select('*');
+                $this->db->from('entry_type_of_repair');
+                $this->db->join('repair_entry', 'repair_entry.entry_id=entry_type_of_repair.repair_id','left');
+                $this->db->join('repair_type', 'repair_type.type_id=entry_type_of_repair.type_of_work_id','left');
+                $this->db->join('repair_mech', 'repair_mech.repair_id=entry_type_of_repair.repair_id','left');
+
+                $this->db->join('stop', 'repair_entry.stop_id=stop.stop_id','left');
+                $this->db->join('status', 'repair_entry.status=status.status_id','left');
+                $this->db->join('service', 'repair_entry.service=service.service_id','left');
+                $this->db->where('repair_mech.mechanic_id',$mech_id);
+                $this->db->order_by('entry_id', 'DESC');
+                $this->db->order_by('repair_type', 'asc');
+
+
+               
+               
+
+                $query = $this->db->get()->result();
+                
+                return $query;
+                     
+                
+            }
+
              public function get_mechs($entry_id)
             {
                 $this->db->select('*');

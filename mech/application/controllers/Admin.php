@@ -509,6 +509,65 @@ function __construct()
 
   }
 
+   public function see_repairs(){
+     
+        $mech_id=$this->uri->segment(3);
+        
+
+        $data['stops'] = $this->Designmodel->get_stops();
+        $data['spares'] = $this->Designmodel->get_spares();
+        $data['status'] = $this->Designmodel->get_repair_status();
+        $data['mechanics'] = $this->Designmodel->get_mechanics();
+        $data['service'] = $this->Designmodel->get_service();
+
+
+
+        
+
+
+        $data['types'] = $this->Designmodel->get_repair_types();
+
+        $data['repair_details'] = $this->Designmodel->get_repair_details_mech($mech_id);
+
+
+          $i=0;
+
+          foreach($data['repair_details'] as $lob){
+
+                $entry_id=$lob->entry_id;
+
+                $data['mechs']=$this->Adminmodel->get_mechs($entry_id);
+                $data['repair_types']=$this->Adminmodel->get_repair_types($entry_id);
+
+               
+                $data['repair_details'][$i]->mechs= $data['mechs'];
+                $data['repair_details'][$i]->repair_types= $data['repair_types'];
+
+
+                $i++;
+
+               // print_r($data['mechanics']); die();
+
+
+
+          }
+
+        
+
+
+          $data['message'] = "repairs by this mechanic";
+
+        //print_r($data['discipline']->num_rows()); die();
+              
+        $this->load->view('admin/header',$data);     
+        $this->load->view('admin/repairs',$data);
+        $this->load->view('admin/footer',$data);
+
+
+
+
+  }
+
 
    public function edit_stop_process(){
      
