@@ -8,7 +8,7 @@
           <div class="ps-3">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="javascript:;">Manager</a>
+                <li class="breadcrumb-item"><a href="javascript:;">Admin</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Update Repair Details</li>
               </ol>
@@ -50,7 +50,7 @@
 
                                         ?>
 
-                                       <form method="post" action="<?= base_url('mechanic/edit_repair_process'); ?>">
+                                       <form method="post" action="<?= base_url('admin/edit_repair_process'); ?>">
 
                                          <input type="hidden" name="entry_id" value="<?= $wah->entry_id; ?>">
                                                      <div class="row mb-3">

@@ -53,11 +53,13 @@
                                                            
                                                             <th>Name </th>
 
-                                                             <th>Phone </th>
+                                                            <th>Phone </th>
 
 
                                                             
                                                             <th>Skill Level</th>
+
+                                                            <th>Available On</th>
 
                                                             <th>Stops</th>
                                                            
@@ -81,7 +83,11 @@
 
                                                                     if($row->level==1){  echo "Master";  } else { echo "Apprentice"; }  } ?></td>
 
+                                                                 <td><?php if(isset($row->available)) { echo $row->available;  }   ?></td>
+
                                                                 <td><?php if(isset($row->stops)) { echo $row->stops;  }   ?></td>
+
+
                                                              
 
                                                                
@@ -173,7 +179,7 @@
                                
                                   <div class="col-sm-12">
                                   
-                                      <input class="form-control" type="text" name="phone" required>
+                                      <input class="form-control" type="tel" name="phone" required>
                                     
                                   </div>
                                                        
@@ -196,6 +202,33 @@
                                          ?>
 
                                           <option value="<?= $stop->stop_id ?>"><?= $stop->stop_name ?></option>
+
+                                        <?php } ?>
+                                        
+                                         
+                                       </select>
+                                    
+                                  </div>
+                                                       
+                                                       
+                                                       
+                            </div>
+
+                               <div class="row mb-3">
+                              <div class="col-sm-12 mb-3">
+                                <label class="col-form-label" for="example-password">Available On</label>
+                               </div>
+                               
+                                  <div class="col-sm-12">
+                                  
+                                       <select class="form-control" id="day_id" name="days[]" multiple required style="width: 100%;">
+
+                                        <?php
+                                           foreach($days as $day){
+
+                                         ?>
+
+                                          <option value="<?= $day->day_id ?>"><?= $day->day_name ?></option>
 
                                         <?php } ?>
                                         

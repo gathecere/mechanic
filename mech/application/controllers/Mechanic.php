@@ -37,6 +37,9 @@ class Mechanic extends CI_Controller {
                 // Load database
                 $this->load->model('Designmodel');
 
+                 $this->load->model('Adminmodel');
+
+
                  $this->load->model('Mahana_model');
 
                 $this->load->library('mahana_messaging');
@@ -54,9 +57,39 @@ class Mechanic extends CI_Controller {
         $data['spares'] = $this->Designmodel->get_spares();
         $data['status'] = $this->Designmodel->get_repair_status();
         $data['mechanics'] = $this->Designmodel->get_mechanics();
+        $data['service'] = $this->Designmodel->get_service();
+
+
+
+        
+
+
         $data['types'] = $this->Designmodel->get_repair_types();
 
         $data['repair_details'] = $this->Designmodel->get_repair_details();
+
+
+          $i=0;
+
+          foreach($data['repair_details'] as $lob){
+
+                $entry_id=$lob->entry_id;
+
+                $data['mechs']=$this->Adminmodel->get_mechs($entry_id);
+                $data['repair_types']=$this->Adminmodel->get_repair_types($entry_id);
+
+               
+                $data['repair_details'][$i]->mechs= $data['mechs'];
+                $data['repair_details'][$i]->repair_types= $data['repair_types'];
+
+
+                $i++;
+
+               // print_r($data['mechanics']); die();
+
+
+
+          }
 
         
 
@@ -80,7 +113,12 @@ class Mechanic extends CI_Controller {
         $data['stops'] = $this->Designmodel->get_stops();
         $data['spares'] = $this->Designmodel->get_spares();
         $data['status'] = $this->Designmodel->get_repair_status();
+        $data['service'] = $this->Designmodel->get_service();
+
         $data['mechanics'] = $this->Designmodel->get_mechanics();
+        $data['mechs'] = $this->Designmodel->get_mechs($entry_id);
+        $data['tys'] = $this->Designmodel->get_tys($entry_id);
+
         $data['types'] = $this->Designmodel->get_repair_types();
 
         $data['h'] = $this->Designmodel->get_repair_details_edit($entry_id);
@@ -108,11 +146,15 @@ class Mechanic extends CI_Controller {
 
         $entry_id=$this->input->post('entry_id');
 
+
+        $mechanics=$this->input->post('mechanic');
+        $type_of_repair=$this->input->post('type_of_repair');
+
         $insert_arr=array(
 
-                           'rider_name'=>$this->input->post('name'),
-                           'mechanic_id'=>$this->input->post('mechanic'),
-                           'type_id'=>$this->input->post('type_of_repair'),
+                           'bib_number'=>$this->input->post('bib_number'),
+                           'service'=>$this->input->post('service'),
+                          // 'type_id'=>$this->input->post('type_of_repair'),
                            'stop_id'=>$stop,
                            'time'=>$time,
                            'status'=>$status,
@@ -120,6 +162,51 @@ class Mechanic extends CI_Controller {
                          );
 
        $this->Designmodel->edit_repair_process($entry_id,$insert_arr);
+
+        $this->Designmodel->del_mechs($entry_id);
+        $this->Designmodel->del_types($entry_id);
+
+
+          foreach($mechanics as $mechanic){
+
+                  $arr=array(
+
+                              'mechanic_id'=>$mechanic,
+                              'repair_id'=>$entry_id,
+
+                            );
+
+                  $this->Designmodel->update_spares($arr);
+
+
+                 
+
+
+
+
+        }
+
+
+        foreach($type_of_repair as $type){
+
+                  $arr=array(
+
+                              'type_of_work_id'=>$type,
+                              'repair_id'=>$entry_id,
+
+                            );
+
+                  $this->Designmodel->update_ok($arr);
+
+
+                 
+
+
+
+
+        }
+
+
 
 
          $data['message'] = "Repair details edited successfully";
@@ -129,8 +216,33 @@ class Mechanic extends CI_Controller {
         $data['status'] = $this->Designmodel->get_repair_status();
         $data['mechanics'] = $this->Designmodel->get_mechanics();
         $data['types'] = $this->Designmodel->get_repair_types();
+        $data['service'] = $this->Designmodel->get_service();
+
 
         $data['repair_details'] = $this->Designmodel->get_repair_details();
+
+           $i=0;
+
+          foreach($data['repair_details'] as $lob){
+
+                $entry_id=$lob->entry_id;
+
+                $data['mechs']=$this->Adminmodel->get_mechs($entry_id);
+                $data['repair_types']=$this->Adminmodel->get_repair_types($entry_id);
+
+               
+                $data['repair_details'][$i]->mechs= $data['mechs'];
+                $data['repair_details'][$i]->repair_types= $data['repair_types'];
+
+
+                $i++;
+
+               // print_r($data['mechanics']); die();
+
+
+
+          }
+
 
          $this->load->view('buyer/header');     
         $this->load->view('buyer/repair',$data);
@@ -149,12 +261,14 @@ class Mechanic extends CI_Controller {
        $spares=$this->input->post('spare');
        $time=$this->input->post('time');
        $status=$this->input->post('status');
+       $mechanics=$this->input->post('mechanics');
+       $type_of_repair=$this->input->post('type_of_repair');
 
         $insert_arr=array(
 
                            'rider_name'=>$this->input->post('name'),
-                           'mechanic_id'=>$this->input->post('mechanic'),
-                           'type_id'=>$this->input->post('type_of_repair'),
+                           'bib_number'=>$this->input->post('bib_number'),
+                           'service'=>$this->input->post('service'),
                            'stop_id'=>$stop,
                            'time'=>$time,
                            'status'=>$status,
@@ -163,32 +277,45 @@ class Mechanic extends CI_Controller {
 
        $insert_id=$this->Designmodel->update_repair_process($insert_arr);
 
-       //insert spares
-        // foreach($spares as $spare){
+      // insert spares
+        foreach($mechanics as $mechanic){
 
-        //           $arr=array(
+                  $arr=array(
 
-        //                       'inventory_id'=>$spare,
-        //                       'entry_id'=>$insert_id,
+                              'mechanic_id'=>$mechanic,
+                              'repair_id'=>$insert_id,
 
-        //                     );
+                            );
 
-        //           $this->Designmodel->update_spares($arr);
+                  $this->Designmodel->update_spares($arr);
 
 
-        //            $oz=array(
-
-        //                       'inventory_id'=>$spare,
-        //                       'quantity_out'=>1,
-
-        //                     );
-
-        //           $this->Designmodel->update_inventory($oz);
+                 
 
 
 
 
-        // }
+        }
+
+
+        foreach($type_of_repair as $type){
+
+                  $arr=array(
+
+                              'type_of_work_id'=>$type,
+                              'repair_id'=>$insert_id,
+
+                            );
+
+                  $this->Designmodel->update_ok($arr);
+
+
+                 
+
+
+
+
+        }
 
         $data['message'] = "Repair details added successfully";
 
@@ -199,6 +326,29 @@ class Mechanic extends CI_Controller {
         $data['types'] = $this->Designmodel->get_repair_types();
 
         $data['repair_details'] = $this->Designmodel->get_repair_details();
+
+           $i=0;
+
+          foreach($data['repair_details'] as $lob){
+
+                $entry_id=$lob->entry_id;
+
+                $data['mechs']=$this->Adminmodel->get_mechs($entry_id);
+                $data['repair_types']=$this->Adminmodel->get_repair_types($entry_id);
+
+               
+                $data['repair_details'][$i]->mechs= $data['mechs'];
+                $data['repair_details'][$i]->repair_types= $data['repair_types'];
+
+
+                $i++;
+
+               // print_r($data['mechanics']); die();
+
+
+
+          }
+
 
 
         $this->load->view('buyer/header');     

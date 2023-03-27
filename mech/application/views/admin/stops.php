@@ -51,12 +51,16 @@
                                                       <tr>
                                                               
                                                           
-                                                           
+                                                            <th>Date</th>
+
                                                             <th>Sequence </th>
                                                             
                                                             <th>Name</th>
 
                                                             <th>Address</th>
+
+                                                           
+
 
 
                                                          
@@ -70,12 +74,18 @@
                                                           foreach ($stops as $row)
                                                           {   ?>
                                                           <tr>
+
+                                                              <td><?php if(isset($row->days)) { echo $row->days;  }   ?></td>
+
+
                                                               <td><?= $row->sequence; ?></a></td>
                                                              
                                                             
                                                               <td><?php if(isset($row->stop_name)) { echo $row->stop_name;  }   ?></td>
 
-                                                               <td><?php if(isset($row->stop_details)) { echo $row->stop_details;  }   ?></td>
+                                                               <td><?php if(isset($row->stop_details)) { echo $row->stop_details.' '. $row->city.' '. $row->state.' '. $row->zipcode;  }   ?></td>
+
+                                                               
                                                              
 
                                                              
@@ -154,19 +164,61 @@
                             </div>
 
                             <div class="row mb-3">
-                              <div class="col-sm-12">
-                                <label class="col-form-label" for="example-password">Stop Address</label>
-                               </div>
+                              <div class="col-sm-6">
+                                <label class="col-form-label" for="example-password">Street address</label>
+                               
                                
                                   <div class="col-sm-12">
                                   
-                                      <textarea class="form-control" name="stop_details"></textarea>
+                                    
+                                       <input class="form-control" name="stop_details" type="text" required>
                                     
                                   </div>
+                               </div>
+
+                                <div class="col-sm-6">
+                                <label class="col-form-label" for="example-password">City</label>
+                               
+                               
+                                  <div class="col-sm-12">
+                                  
+                                      <input class="form-control" name="city" type="text" required>
+                                    
+                                  </div>
+                               </div>
                                                        
                                                        
                                                        
                             </div>
+
+                             <div class="row mb-3">
+                              <div class="col-sm-6">
+                                <label class="col-form-label" for="example-password">State</label>
+                               
+                               
+                                  <div class="col-sm-12">
+                                  
+                                      <input class="form-control" name="state" type="text" required>
+                                    
+                                  </div>
+                               </div>
+
+                                <div class="col-sm-6">
+                                <label class="col-form-label" for="example-password">Zip Code</label>
+                               
+                               
+                                  <div class="col-sm-12">
+                                  
+                                      <input class="form-control" name="zip" type="text" required>
+                                    
+                                  </div>
+                               </div>
+                                                       
+                                                       
+                                                       
+                            </div>
+
+                         
 
                              <div class="row mb-3">
                               <div class="col-sm-12">

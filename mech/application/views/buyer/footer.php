@@ -1,74 +1,42 @@
-<div class="overlay toggle-icon"></div>
-        <!--end overlay-->
-        <!--Start Back To Top Button-->
-          <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-        <!--End Back To Top Button-->
-        <footer class="page-footer">
-        </footer>
-    </div>
-    <!--end wrapper-->
-    <!--start switcher-->
+
+      
    
+
+
     
 
-     <script src="<?= base_url('adminassets/js/bootstrap.bundle.min.js'); ?>"></script>
-
-    <script src="<?= base_url('adminassets/js/jquery.min.js'); ?>"></script>
-
-   
-
-
-    <script src="<?= base_url('adminassets/js/dropzone.min.js'); ?>"></script>
-
-    <!--plugins-->
-    <script src="<?= base_url('adminassets/plugins/simplebar/js/simplebar.min.js'); ?>"></script>
-    <script src="<?= base_url('adminassets/plugins/metismenu/js/metisMenu.min.js'); ?>"></script>
-    <script src="<?= base_url('adminassets/plugins/perfect-scrollbar/js/perfect-scrollbar.js'); ?>"></script>
-    <script src="<?= base_url('adminassets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js'); ?>"></script>
-    <script src="<?= base_url('adminassets/plugins/vectormap/jquery-jvectormap-world-mill-en.js'); ?>"></script>
-    <script src="<?= base_url('adminassets/plugins/chartjs/js/Chart.min.js'); ?>"></script>
-    <script src="<?= base_url('adminassets/plugins/chartjs/js/Chart.extension.js'); ?>"></script>
-    <script src="<?= base_url('adminassets/plugins/select2/js/select2.min.js'); ?>"></script>
-
-    <script src="<?= base_url('adminassets/js/index.js'); ?>"></script>
-   
-    <!--app JS-->
-    <script src="<?= base_url('adminassets/js/app.js'); ?>"></script>
-    <script src="<?php echo base_url('adminassets/js/pace.min.js'); ?>"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script src="<?= base_url('adminassets/plugins/datatable/js/jquery.dataTables.min.js'); ?>"></script>
-    <script src="<?= base_url('adminassets/plugins/datatable/js/dataTables.bootstrap5.min.js'); ?>"></script>
-
-
+      <br>
+      <footer class="container-fluid bg-4 text-center">
+        <p>Mechanic Record System Made By Team Eagles</p> 
+      </footer>
+  
+    
 
      
 
-    <script>
-      //alert("hey");
-      var base_url = '<?php echo base_url();?>';
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
 
      <script type="text/javascript">
-          //clear forms
-           $("form :input").attr("autocomplete", "off");           
-        </script>
+          function phoneMask() { 
+                var num = $(this).val().replace(/\D/g,''); 
+                $(this).val(num.substring(0,1) + '(' + num.substring(1,4) + ')' + num.substring(4,7) + '-' + num.substring(7,11)); 
+            }
+            $('[type="tel"]').keyup(phoneMask);
 
-     <script>
-       
-               $(document).ready(function() {
-                $('#spare').select2();
+
+         $(document).ready(function() {
+                $('#mechanic').select2();
+                $('#repair').select2();
+               
             });
-
-
-
-    </script>
-
-</body>
-
-
-
-
-
+       </script>
+  </body>
 </html>

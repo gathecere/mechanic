@@ -86,6 +86,135 @@
 
            }
 
+
+            public function get_mechs($entry_id) {
+
+                $this->db->select('*');
+                $this->db->from('repair_mech');
+                $this->db->join('mechanic', 'mechanic.id=repair_mech.mechanic_id','left');
+                $this->db->where('repair_id', $entry_id);
+                $stops=$this->db->get()->result();
+
+                $arr=array();
+
+                foreach($stops as $stop){
+
+
+                            array_push($arr,$stop->name);
+
+
+
+                }
+
+                $str=implode(',',$arr);
+
+                return $str;
+                
+                
+
+           }
+
+            public function get_repair_types($entry_id) {
+
+                $this->db->select('*');
+                $this->db->from('entry_type_of_repair');
+                $this->db->join('repair_type', 'repair_type.type_id=entry_type_of_repair.type_of_work_id','left');
+                $this->db->where('repair_id', $entry_id);
+                $stops=$this->db->get()->result();
+
+                $arr=array();
+
+                foreach($stops as $stop){
+
+
+                            array_push($arr,$stop->repair_type);
+
+
+
+                }
+
+                $str=implode(',',$arr);
+
+                return $str;
+                
+                
+
+           }
+
+           public function get_stop_days($stop_id) {
+
+                $this->db->select('mechanic_id');
+                $this->db->from('mechanic_stop');
+               // $this->db->join('stop', 'stop.stop_id=mechanic_stop.stop_id','left');
+                $this->db->where('stop_id', $stop_id);
+
+                $results=$this->db->get()->result();
+
+                $arr=array();
+
+                foreach($results as $result){
+
+                            $mech_id=$result->mechanic_id;
+
+                            $this->db->select('day_name');
+                            $this->db->from('mechanic_days');
+                            $this->db->join('day', 'day.day_id=mechanic_days.day_id','left');
+                            $this->db->join('mechanic', 'mechanic.id=mechanic_days.mechanic_id','left');
+
+                            $this->db->where('mechanic_days.mechanic_id', $mech_id);
+                            $this->db->where('mechanic.id', $mech_id);
+                            $results=$this->db->get()->result();
+
+                            foreach($results as $res){
+
+                                   array_push($arr,$res->day_name);
+
+
+                            }
+
+
+                }
+
+                //get unique items in an array
+                $aq=array_unique($arr);
+
+
+
+                $str=implode(',',$aq);
+
+                return $str;
+                
+                
+
+           }
+
+            public function get_mechanic_availability($mechanic_id) {
+
+                $this->db->select('*');
+                $this->db->from('mechanic_days');
+                $this->db->join('day', 'day.day_id=mechanic_days.day_id','left');
+                $this->db->where('mechanic_id', $mechanic_id);
+                $stops=$this->db->get()->result();
+
+                $arr=array();
+
+                foreach($stops as $stop){
+
+
+                            array_push($arr,$stop->day_name);
+
+
+
+                }
+
+                $str=implode(',',$arr);
+
+                return $str;
+                
+                
+
+           }
+
              public function get_inventory() {
 
                 $this->db->select('inventory.inventory_id, spare_name,((select ifnull(sum(quantity_in),0) from stock_tracker where inventory.inventory_id=stock_tracker.inventory_id)-(select ifnull(sum(quantity_out),0) from stock_tracker where inventory.inventory_id=stock_tracker.inventory_id)) as inventory_balance');
@@ -146,6 +275,24 @@
                 
                
                 $this->db->order_by('entry_date','DESC'); 
+
+                $query = $this->db->get();
+                
+                return $query->result();
+                     
+                
+            }
+
+
+             public function get_days()
+            {
+                $this->db->select('*');
+
+                $this->db->from('day');
+               
+                
+               
+              //  $this->db->where('stop_id',$stop_id); 
 
                 $query = $this->db->get();
                 
@@ -250,6 +397,15 @@
 
           }
 
+           public function insert_mechanic_days($data)
+          {
+
+             $this->db->insert('mechanic_days',$data);
+
+
+          }
+
+
 
 
 
@@ -274,6 +430,7 @@
           {
 
               $this->db->delete('repair_entry', array('entry_id' => $id)); 
+              $this->db->delete('entry_type_of_repair', array('repair_id' => $id)); 
 
 
           }

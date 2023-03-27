@@ -25,8 +25,18 @@
 
 
      <script type="text/javascript">
+          function phoneMask() { 
+                var num = $(this).val().replace(/\D/g,''); 
+                $(this).val(num.substring(0,1) + '(' + num.substring(1,4) + ')' + num.substring(4,7) + '-' + num.substring(7,11)); 
+            }
+            $('[type="tel"]').keyup(phoneMask);
+
+
          $(document).ready(function() {
                 $('#stop_id').select2();
+                $('#day_id').select2();
+                 $('#mechanic').select2();
+                $('#repair').select2();
             });
        </script>
   </body>

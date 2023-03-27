@@ -58,6 +58,29 @@ function __construct()
   {
          $data['stops']=$this->Adminmodel->get_stops();
 
+         $i=0;
+
+          foreach($data['stops'] as $lob){
+
+                $stop_id=$lob->stop_id;
+
+                //get days
+
+                $data['days']=$this->Adminmodel->get_stop_days($stop_id);
+                //$data['available']=$this->Adminmodel->get_mechanic_availability($mechanic_id);
+
+               
+                $data['stops'][$i]->days= $data['days'];
+              //  $data['mechanics'][$i]->available= $data['available'];
+
+                $i++;
+
+               // print_r($data['mechanics']); die();
+
+
+
+          }
+
 
          $this->load->view('admin/header',$data);
          $this->load->view('admin/stops',$data);
@@ -77,9 +100,11 @@ function __construct()
                 $mechanic_id=$lob->id;
 
                 $data['stops']=$this->Adminmodel->get_mechanic_stops($mechanic_id);
+                $data['available']=$this->Adminmodel->get_mechanic_availability($mechanic_id);
 
                
                 $data['mechanics'][$i]->stops= $data['stops'];
+                $data['mechanics'][$i]->available= $data['available'];
 
                 $i++;
 
@@ -90,6 +115,8 @@ function __construct()
           }
 
           $data['stops']=$this->Adminmodel->get_stops();
+          $data['days']=$this->Adminmodel->get_days();
+
 
 
          $this->load->view('admin/header',$data);
@@ -137,6 +164,10 @@ function __construct()
         $update_arr=array(
                            'stop_name'=>$stop_name,
                            'stop_details'=>$stop_details,
+                           'city'=>$this->input->post('city'),
+                           'state'=>$this->input->post('state'),
+                           'zipcode'=>$this->input->post('zip'),
+
                            'sequence'=>$sequence,
                          );
 
@@ -179,6 +210,7 @@ function __construct()
         $level=$this->input->post('experience');
         $phone=$this->input->post('phone');
         $stop_ids=$this->input->post('stop_id');
+        $days=$this->input->post('days');
 
        // $ins=array();
 
@@ -197,6 +229,21 @@ function __construct()
                          );
 
         $mechanic_id=$this->Adminmodel->insert_mechanic($update_arr);
+
+
+           foreach($days as $day){
+
+                $ins=array(
+                             'day_id'=>$day,
+                             'mechanic_id'=>$mechanic_id,
+                          );
+
+
+             $this->Adminmodel->insert_mechanic_days($ins);
+
+
+
+        }
 
 
          foreach($stop_ids as $stop_id){
@@ -223,9 +270,12 @@ function __construct()
                 $mechanic_id=$lob->id;
 
                 $data['stops']=$this->Adminmodel->get_mechanic_stops($mechanic_id);
+                $data['available']=$this->Adminmodel->get_mechanic_availability($mechanic_id);
 
                
                 $data['mechanics'][$i]->stops= $data['stops'];
+                $data['mechanics'][$i]->available= $data['available'];
+
 
                 $i++;
 
@@ -287,6 +337,157 @@ function __construct()
 
 
 
+  }
+
+
+    public function edit_repair_process()
+  {
+
+       $stop=$this->input->post('stop');
+       $spares=$this->input->post('spare');
+       $time=$this->input->post('time');
+       $status=$this->input->post('status');
+
+        $entry_id=$this->input->post('entry_id');
+
+
+        $mechanics=$this->input->post('mechanic');
+        $type_of_repair=$this->input->post('type_of_repair');
+
+        $insert_arr=array(
+
+                           'bib_number'=>$this->input->post('bib_number'),
+                           'service'=>$this->input->post('service'),
+                          // 'type_id'=>$this->input->post('type_of_repair'),
+                           'stop_id'=>$stop,
+                           'time'=>$time,
+                           'status'=>$status,
+
+                         );
+
+       $this->Designmodel->edit_repair_process($entry_id,$insert_arr);
+
+        $this->Designmodel->del_mechs($entry_id);
+        $this->Designmodel->del_types($entry_id);
+
+
+          foreach($mechanics as $mechanic){
+
+                  $arr=array(
+
+                              'mechanic_id'=>$mechanic,
+                              'repair_id'=>$entry_id,
+
+                            );
+
+                  $this->Designmodel->update_spares($arr);
+
+
+                 
+
+
+
+
+        }
+
+
+        foreach($type_of_repair as $type){
+
+                  $arr=array(
+
+                              'type_of_work_id'=>$type,
+                              'repair_id'=>$entry_id,
+
+                            );
+
+                  $this->Designmodel->update_ok($arr);
+
+
+                 
+
+
+
+
+        }
+
+
+
+
+         $data['message'] = "Repair details edited successfully";
+
+        $data['stops'] = $this->Designmodel->get_stops();
+        $data['spares'] = $this->Designmodel->get_spares();
+        $data['status'] = $this->Designmodel->get_repair_status();
+        $data['mechanics'] = $this->Designmodel->get_mechanics();
+        $data['types'] = $this->Designmodel->get_repair_types();
+        $data['service'] = $this->Designmodel->get_service();
+
+
+        $data['repair_details'] = $this->Designmodel->get_repair_details();
+
+           $i=0;
+
+          foreach($data['repair_details'] as $lob){
+
+                $entry_id=$lob->entry_id;
+
+                $data['mechs']=$this->Adminmodel->get_mechs($entry_id);
+                $data['repair_types']=$this->Adminmodel->get_repair_types($entry_id);
+
+               
+                $data['repair_details'][$i]->mechs= $data['mechs'];
+                $data['repair_details'][$i]->repair_types= $data['repair_types'];
+
+
+                $i++;
+
+               // print_r($data['mechanics']); die();
+
+
+
+          }
+
+
+         $this->load->view('admin/header');     
+        $this->load->view('admin/repairs',$data);
+        $this->load->view('admin/footer');
+
+
+
+     }
+
+
+
+
+    public function edit_entry()
+  {
+        $entry_id=$this->uri->segment(3);
+         
+       
+        $data['title']="Mechanic"; 
+        $data['stops'] = $this->Designmodel->get_stops();
+        $data['spares'] = $this->Designmodel->get_spares();
+        $data['status'] = $this->Designmodel->get_repair_status();
+        $data['service'] = $this->Designmodel->get_service();
+
+        $data['mechanics'] = $this->Designmodel->get_mechanics();
+        $data['mechs'] = $this->Designmodel->get_mechs($entry_id);
+        $data['tys'] = $this->Designmodel->get_tys($entry_id);
+
+        $data['types'] = $this->Designmodel->get_repair_types();
+
+        $data['h'] = $this->Designmodel->get_repair_details_edit($entry_id);
+
+        
+
+
+      //  $data['userData'] = $data;
+
+        //print_r($data['discipline']->num_rows()); die();
+              
+        $this->load->view('admin/header',$data);     
+        $this->load->view('admin/edit_entry',$data);
+        $this->load->view('admin/footer',$data);
   }
 
    public function repair_details(){
@@ -538,20 +739,54 @@ function __construct()
         
 
        // $this->Adminmodel->delete_stop($stop_id);
-
-        $data['stops'] = $this->Designmodel->get_stops();
+$data['stops'] = $this->Designmodel->get_stops();
         $data['spares'] = $this->Designmodel->get_spares();
         $data['status'] = $this->Designmodel->get_repair_status();
         $data['mechanics'] = $this->Designmodel->get_mechanics();
+        $data['service'] = $this->Designmodel->get_service();
+
+
+
+        
+
+
         $data['types'] = $this->Designmodel->get_repair_types();
 
         $data['repair_details'] = $this->Designmodel->get_repair_details();
 
 
+          $i=0;
 
-         $this->load->view('admin/header',$data);
-         $this->load->view('admin/repairs',$data);
-         $this->load->view('admin/footer',$data);
+          foreach($data['repair_details'] as $lob){
+
+                $entry_id=$lob->entry_id;
+
+                $data['mechs']=$this->Adminmodel->get_mechs($entry_id);
+                $data['repair_types']=$this->Adminmodel->get_repair_types($entry_id);
+
+               
+                $data['repair_details'][$i]->mechs= $data['mechs'];
+                $data['repair_details'][$i]->repair_types= $data['repair_types'];
+
+
+                $i++;
+
+               // print_r($data['mechanics']); die();
+
+
+
+          }
+
+        
+
+
+      //  $data['userData'] = $data;
+
+        //print_r($data['discipline']->num_rows()); die();
+              
+        $this->load->view('admin/header',$data);     
+        $this->load->view('admin/repairs',$data);
+        $this->load->view('admin/footer',$data);
 
 
 

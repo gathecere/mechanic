@@ -41,11 +41,49 @@
            public function get_repair_details()
             {
                 $this->db->select('*');
-                $this->db->from('repair_entry');
+                $this->db->from('entry_type_of_repair');
+                $this->db->join('repair_entry', 'repair_entry.entry_id=entry_type_of_repair.repair_id','left');
+                $this->db->join('repair_type', 'repair_type.type_id=entry_type_of_repair.type_of_work_id','left');
                 $this->db->join('stop', 'repair_entry.stop_id=stop.stop_id','left');
                 $this->db->join('status', 'repair_entry.status=status.status_id','left');
-                $this->db->join('mechanic', 'repair_entry.mechanic_id=mechanic.id','left');
-                $this->db->join('repair_type', 'repair_entry.type_id=repair_type.type_id','left');
+                $this->db->join('service', 'repair_entry.service=service.service_id','left');
+                $this->db->order_by('entry_id', 'DESC');
+                $this->db->order_by('repair_type', 'asc');
+
+
+               
+               
+
+                $query = $this->db->get()->result();
+                
+                return $query;
+                     
+                
+            }
+
+             public function get_mechs($entry_id)
+            {
+                $this->db->select('*');
+                $this->db->from('repair_mech');
+              
+                $this->db->where('repair_id', $entry_id);
+
+               
+               
+
+                $query = $this->db->get()->result();
+                
+                return $query;
+                     
+                
+            }
+
+            public function get_tys($entry_id)
+            {
+                $this->db->select('*');
+                $this->db->from('entry_type_of_repair');
+              
+                $this->db->where('repair_id', $entry_id);
 
                
                
@@ -64,8 +102,8 @@
                 $this->db->from('repair_entry');
                 $this->db->join('stop', 'repair_entry.stop_id=stop.stop_id','left');
                 $this->db->join('status', 'repair_entry.status=status.status_id','left');
-                $this->db->join('mechanic', 'repair_entry.mechanic_id=mechanic.id','left');
-                $this->db->join('repair_type', 'repair_entry.type_id=repair_type.type_id','left');
+              //  $this->db->join('mechanic', 'repair_entry.mechanic_id=mechanic.id','left');
+              //  $this->db->join('repair_type', 'repair_entry.type_id=repair_type.type_id','left');
                 $this->db->where('entry_id', $entry_id);
 
                
@@ -118,7 +156,15 @@
 
            public function update_spares($data) {
 
-            $this->db->insert('entry_spare', $data);
+            $this->db->insert('repair_mech', $data);
+
+           
+
+          }
+
+           public function update_ok($data) {
+
+            $this->db->insert('entry_type_of_repair', $data);
 
            
 
@@ -270,6 +316,18 @@
 
             }
 
+             public function get_service()
+            {
+                $this->db->select('*');
+                $this->db->from('service');
+              
+                return $this->db->get()->result();
+
+            
+
+            }
+
+
              public function get_admin_id()
             {
                 $this->db->select('user_id');
@@ -281,6 +339,22 @@
                 return $user_id;
 
             }
+
+               public function del_mechs($id)
+              {
+
+                  $this->db->delete('repair_mech', array('repair_id' => $id)); 
+
+
+              }
+
+               public function del_types($id)
+              {
+
+                  $this->db->delete('entry_type_of_repair', array('repair_id' => $id)); 
+
+
+              }
 
 
 

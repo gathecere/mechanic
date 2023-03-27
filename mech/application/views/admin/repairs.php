@@ -27,7 +27,6 @@
                  <div class="card-body">
 
                                       <?php
-
                                         if(isset($message)){ ?>
 
                                           <div class="alert alert-info">
@@ -51,25 +50,30 @@
                                             <table class="table table-striped mb-0" id="example">
                                                 <thead>
                                                       <tr>
-                                                            <th>#</th>
+                                                            <th>Name</th>
+
+                                                            <th>Order</th>
                                                           
                                                            
-                                                            <th>Rider </th>
+                                                            <th>Bib Number </th>
 
-                                                            <th>Stop </th>
+                                                            <th>Stop Name</th>
 
 
                                                             
-                                                            <th>Mechanic</th>
-
-                                                            <th>Type of Repir</th>
-
-                                                            <th>Duration(mins)</th>
-
-                                                            <th>Repair Status</th>
+                                                            <th>Mechanic(s)</th>
 
                                                            
-                                                            <th>Delete</th>
+
+                                                            <th>Repair Time</th>
+
+                                                            <th>Was it fully repaired?</th>
+
+                                                             <th>Temporary service?</th>
+
+                                                           
+                                                            <th>Edit</th>
+                                                             <th>Delete</th>
                                                         </tr>
                                                 </thead>
                                                 <tbody>
@@ -78,20 +82,25 @@
                                                           foreach ($repair_details as $row)
                                                           {   ?>
                                                           <tr>
+                                                              <td><?php if(isset($row->repair_type)) { echo $row->repair_type;  }   ?></td>
+
+
                                                               <td><?= $row->entry_id; ?></a></td>
                                                              
                                                             
-                                                              <td><?php if(isset($row->rider_name)) { echo $row->rider_name;  }   ?></td>
+                                                              <td><?php if(isset($row->bib_number)) { echo $row->bib_number;  }   ?></td>
 
                                                               <td><?php if(isset($row->stop_name)) { echo $row->stop_name;  }   ?></td>
 
-                                                              <td><?php if(isset($row->name)) { echo $row->name;  }   ?></td>
+                                                              <td><?php if(isset($row->mechs)) { echo $row->mechs;  }   ?></td>
 
-                                                                <td><?php if(isset($row->repair_type)) { echo $row->repair_type;  }   ?></td>
+                                                               
 
                                                               <td><?php if(isset($row->time)) { echo $row->time;  }   ?></td>
 
                                                                 <td><?php if(isset($row->status_name)) { echo $row->status_name;  }   ?></td>
+
+                                                                <td><?php if(isset($row->service_name)) { echo $row->service_name;  }   ?></td>
 
 
                                                               
@@ -101,7 +110,9 @@
 
                                                                
 
-                                                                 <td><a href="<?php echo base_url('admin/delete_entry/').$row->entry_id; ?>"><button class="btn btn-danger btn-sm">Delete Entry</button></a></td>
+                                                                 <td><a href="<?php echo base_url('admin/edit_entry/').$row->entry_id; ?>"><button class="btn btn-primary btn-sm">Update Entry</button></a></td>
+
+                                                                  <td><a href="<?php echo base_url('admin/delete_entry/').$row->entry_id; ?>"><button class="btn btn-danger btn-sm">Delete Entry</button></a></td>
 
                                                                 
 
@@ -145,10 +156,11 @@
                                        
                                         <div class="row">
                                             <form method="post" action="<?= base_url('mechanic/update_repair_process'); ?>">
-                                                     <div class="row mb-3">
-                                                      <label class="col-sm-3 col-form-label" for="example-email">Rider</label>
+
+                                                  <div class="row mb-3">
+                                                      <label class="col-sm-3 col-form-label" for="example-email">Bib Number(Up to 5)</label>
                                                         <div class="col-sm-9">
-                                                            <input class="form-control" type="text" name="name" required>
+                                                            <input class="form-control" type="number" name="bib_number" min="0" max="55555" required>
                                                         </div>
                                                     </div>
                                                     <br>
@@ -176,7 +188,7 @@
                                                      <div class="row mb-3">
                                                       <label class="col-sm-3 col-form-label" for="example-email">Select Mechanic</label>
                                                         <div class="col-sm-9">
-                                                            <select  class="form-select selector mb-3 form-control" name="mechanic" required>
+                                                            <select style="width: 100%;"  class="form-select selector mb-3 form-control" id="mechanic" name="mechanics[]" multiple required>
                                                                 <option>--</option>
                                                                
                                                                  <?php
@@ -196,7 +208,7 @@
                                                        <div class="row mb-3">
                                                       <label class="col-sm-3 col-form-label" for="example-email">Type of repair</label>
                                                         <div class="col-sm-9">
-                                                            <select  class="form-select selector mb-3 form-control" name="type_of_repair" required>
+                                                            <select id="repair" style="width: 100%;"  class="form-select selector mb-3 form-control" name="type_of_repair[]" multiple required>
                                                                 <option>--</option>
                                                                
                                                                  <?php
@@ -232,7 +244,7 @@
                                                      <br>
 
                                                      <div class="row mb-3">
-                                                        <label class="col-sm-3 col-form-label" for="example-readonly">Status</label>
+                                                        <label class="col-sm-3 col-form-label" for="example-readonly">was it fully repaired?</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-select selector mb-3 form-control"  name="status" required>
                                                                    
@@ -251,6 +263,28 @@
                                                                 </select>
                                                         </div>
                                                     </div>
+
+                                                     <div class="row mb-3">
+                                                        <label class="col-sm-3 col-form-label" for="example-readonly">is it a temporary service</label>
+                                                        <div class="col-sm-9">
+                                                            <select class="form-select selector mb-3 form-control"  name="service" required>
+                                                                   
+                                                                   
+                                                                    <?php
+
+                                                                                      foreach ($service as $serv)
+
+                                                     
+
+                                                                                        { ?>
+
+                                                                                        <option  value="<?php echo $serv->service_id; ?>"><?php echo $serv->service_name;  ?></option>
+
+                                                                                   <?php } ?>
+                                                                </select>
+                                                        </div>
+                                                    </div>
+
 
                                                     <br>
                                                    
