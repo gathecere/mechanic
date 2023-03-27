@@ -61,7 +61,7 @@
 
                                                            
 
-
+                                                            <th>Update</th>
 
                                                          
                                                            
@@ -86,7 +86,7 @@
                                                                <td><?php if(isset($row->stop_details)) { echo $row->stop_details.' '. $row->city.' '. $row->state.' '. $row->zipcode;  }   ?></td>
 
                                                                
-                                                             
+                                                                 <td><a href="<?php echo base_url('admin/edit_stop/').$row->stop_id; ?>"><button class="btn btn-primary btn-sm">Update Stop</button></a></td>
 
                                                              
 

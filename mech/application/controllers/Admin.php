@@ -580,6 +580,9 @@ function __construct()
         $update_arr=array(
                            'stop_name'=>$stop_name,
                            'stop_details'=>$stop_details,
+                           'city'=>$this->input->post('city'),
+                           'state'=>$this->input->post('state'),
+                           'zipcode'=>$this->input->post('zip'),
                          );
 
         $this->Adminmodel->update_stop($stop_id,$update_arr);
