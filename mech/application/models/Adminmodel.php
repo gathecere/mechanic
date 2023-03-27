@@ -36,6 +36,45 @@
 
            }
 
+              public function get_mechanic_details($mech_id) {
+
+                $this->db->select('*');
+                $this->db->from('mechanic');
+                $this->db->where('id',$mech_id);
+
+      
+                return $this->db->get()->result();
+                
+                
+
+           }
+
+               public function get_stps($mech_id) {
+
+                $this->db->select('*');
+                $this->db->from('mechanic_stop');
+                $this->db->where('mechanic_id',$mech_id);
+
+      
+                return $this->db->get()->result();
+                
+                
+
+           }
+
+               public function get_dys($mech_id) {
+
+                $this->db->select('*');
+                $this->db->from('mechanic_days');
+                $this->db->where('mechanic_id',$mech_id);
+
+      
+                return $this->db->get()->result();
+                
+                
+
+           }
+
               public function check_sequence($sequence) {
 
                 $this->db->select('*');
@@ -406,6 +445,23 @@
           }
 
 
+           public function del_mechanic_days($id)
+          {
+
+              $this->db->delete('mechanic_days', array('mechanic_id' => $id)); 
+
+
+          }
+
+            public function del_mechanic_stops($id)
+          {
+
+              $this->db->delete('mechanic_stop', array('mechanic_id' => $id)); 
+
+
+          }
+
+
 
 
 
@@ -434,6 +490,12 @@
 
 
           }
+
+           public function update_mechanic($id,$data)
+            {
+                $this->db->where('id', $id);
+                $this->db->update('mechanic',$data); 
+            }
 
 
            public function update_stop($id,$data)

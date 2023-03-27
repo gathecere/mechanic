@@ -64,6 +64,8 @@
                                                             <th>Stops</th>
 
                                                              <th>See repairs</th>
+
+                                                             <th>Update Mech Details</th>
                                                            
                                                             <th>Delete</th>
                                                         </tr>
@@ -91,7 +93,7 @@
 
                                                                   <td><a href="<?= base_url('admin/see_repairs/'.$row->id); ?>">Select repairs</a></td>
                                                              
-
+                                                                <td><a href="<?php echo base_url('admin/edit_mechanic/').$row->id; ?>"><button class="btn btn-primary btn-sm">Update Mechanic</button></a></td>
                                                                
 
                                                                  <td><a onclick="return confirm('confirm delete?');"href="<?php echo base_url('admin/delete_mechanic/').$row->id; ?>"><button class="btn btn-danger btn-sm">Delete Mechanic</button></a></td>

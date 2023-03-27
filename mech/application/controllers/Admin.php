@@ -126,6 +126,49 @@ function __construct()
   }
 
 
+   public function edit_mechanic()
+  {
+
+         $mech_id=$this->uri->segment(3);
+
+         $data['mechs']=$this->Adminmodel->get_mechanic_details($mech_id);
+
+       
+           $i=0;
+
+          // foreach($data['mechanics'] as $lob){
+
+          //       $mechanic_id=$lob->id;
+
+          //       $data['stops']=$this->Adminmodel->get_mechanic_stops($mechanic_id);
+          //       $data['available']=$this->Adminmodel->get_mechanic_availability($mechanic_id);
+
+               
+          //       $data['mechanics'][$i]->stops= $data['stops'];
+          //       $data['mechanics'][$i]->available= $data['available'];
+
+          //       $i++;
+
+          //      // print_r($data['mechanics']); die();
+
+
+
+          // }
+
+          $data['stops']=$this->Adminmodel->get_stops();
+          $data['days']=$this->Adminmodel->get_days();
+          $data['stps']=$this->Adminmodel->get_stps($mech_id);
+          $data['dys']=$this->Adminmodel->get_dys($mech_id);
+
+
+
+         $this->load->view('admin/header',$data);
+         $this->load->view('admin/edit_mechanic',$data);
+         $this->load->view('admin/footer',$data);
+             
+  }
+
+
     public function inventory()
   {
          $data['inventory']=$this->Adminmodel->get_inventory();
@@ -288,6 +331,107 @@ function __construct()
         $data['stops']=$this->Adminmodel->get_stops();
 
         $data['message']="mechanic successfully added";
+
+
+
+         $this->load->view('admin/header',$data);
+         $this->load->view('admin/mechanics',$data);
+         $this->load->view('admin/footer',$data);
+
+
+
+
+  }
+
+  public function edit_mechanic_process(){
+     
+        $mech_id=$this->input->post('mech_id');
+        $mechanic_name=$this->input->post('mechanic_name');
+        $level=$this->input->post('experience');
+        $phone=$this->input->post('phone');
+        $stop_ids=$this->input->post('stop_id');
+        $days=$this->input->post('days');
+
+       // $ins=array();
+
+
+
+
+
+      // print_r($stops); die();
+
+
+
+        $update_arr=array(
+                           'name'=>$mechanic_name,
+                           'level'=>$level,
+                           'phone'=>$phone,
+                         );
+
+        $this->Adminmodel->update_mechanic($mech_id,$update_arr);
+
+           $this->Adminmodel->del_mechanic_days($mech_id);
+           $this->Adminmodel->del_mechanic_stops($mech_id);
+
+
+
+           foreach($days as $day){
+
+                $ins=array(
+                             'day_id'=>$day,
+                             'mechanic_id'=>$mech_id,
+                          );
+
+
+             $this->Adminmodel->insert_mechanic_days($ins);
+
+
+
+        }
+
+
+         foreach($stop_ids as $stop_id){
+
+                $ins=array(
+                             'stop_id'=>$stop_id,
+                             'mechanic_id'=>$mech_id,
+                          );
+
+
+             $this->Adminmodel->insert_mechanic_stops($ins);
+
+
+
+        }
+
+
+
+        $data['mechanics']=$this->Adminmodel->get_mechanics();
+         $i=0;
+
+          foreach($data['mechanics'] as $lob){
+
+                $mechanic_id=$lob->id;
+
+                $data['stops']=$this->Adminmodel->get_mechanic_stops($mechanic_id);
+                $data['available']=$this->Adminmodel->get_mechanic_availability($mechanic_id);
+
+               
+                $data['mechanics'][$i]->stops= $data['stops'];
+                $data['mechanics'][$i]->available= $data['available'];
+
+
+                $i++;
+
+               // print_r($data['mechanics']); die();
+
+
+
+          }
+
+        $data['stops']=$this->Adminmodel->get_stops();
+
+        $data['message']="mechanic successfully updated";
 
 
 
