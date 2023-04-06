@@ -166,37 +166,11 @@
   <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
     <div id="root"></div>
 
-      <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>                        
-            </button>
-            <a class="navbar-brand" href="index.html"><img src="https://wtsevent.org/faceofamerica/wp-content/uploads/sites/2/2022/02/WTS-FOA-Lockup-Stacked-2color-RGB.gif" alt="LOGO" width="200px" length="100px"></a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="<?= base_url('mechanic'); ?>">MECHANIC</a></li>
-              <li><a href="<?= base_url('admin'); ?>">ADMIN</a></li>
-             
-            </ul>
-          </div>
-        </div>
-      </nav>
+ 
       
-      <div class="jumbotron text-center">
-        <h1>Face of America</h1> 
-        <p>Mechanic Record System</p> 
-        <form>
-          <div class="input-group">
-            <input type="email" class="form-control" size="50" placeholder="Email Address" required>
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-warning">Subscribe</button>
-            </div>
-          </div>
-        </form>
+      <div class="jumbotron text-center" style="background-image: url('https://wtsevent.org/faceofamerica/wp-content/uploads/sites/2/2022/02/WTS-FOA-Lockup-Stacked-2color-RGB.gif');background-repeat: no-repeat;background-size: cover; background-position: center; height: 700px;">
+       
+       
       </div>
 
 

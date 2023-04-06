@@ -15,6 +15,16 @@
     <title>Admin Panel</title>
 </head>
 <style>
+
+table {
+         overflow-x: scroll;
+         overflow-y:scroll; 
+         display: block;
+         //min-height: 500px;
+        
+     }
+
+th, td { min-width: 200px;}
 body {
     font: 400 15px Lato, sans-serif;
     line-height: 1.8;
@@ -128,7 +138,6 @@ table, td{
               <li><a href="<?= base_url('admin/stops'); ?>">STOP INFORMATION</a></li>
               <li><a href="<?= base_url('admin/mechanics'); ?>">MECHANIC INFORMATION</a></li>
               
-              <li><a href="#">CONTACT</a></li>
             </ul>
           </div>
         </div>

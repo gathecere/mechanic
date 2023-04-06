@@ -6,13 +6,7 @@
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
           <div class="breadcrumb-title pe-3">Update Repair Details</div>
           <div class="ps-3">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="javascript:;">Manager</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Update Repair Details</li>
-              </ol>
-            </nav>
+           
           </div>
          
         </div>
@@ -54,7 +48,7 @@
 
                                          <input type="hidden" name="entry_id" value="<?= $wah->entry_id; ?>">
                                                      <div class="row mb-3">
-                                                      <label class="col-sm-3 col-form-label" for="example-email">Bib Number</label>
+                                                      <label class="col-sm-3 col-form-label" for="example-email">What is the rider’s bib number?</label>
                                                         <div class="col-sm-9">
                                                             <input class="form-control" type="text" name="bib_number" value="<?= $wah->bib_number; ?>" required>
                                                         </div>
@@ -62,7 +56,7 @@
                                                     <br>
                                          
                                                     <div class="row mb-3">
-                                                      <label class="col-sm-3 col-form-label" for="example-email">Select Rest Stop</label>
+                                                      <label class="col-sm-3 col-form-label" for="example-email">Where was the repair made?</label>
                                                         <div class="col-sm-9">
                                                             <select  class="form-select selector mb-3 form-control" name="stop" required>
                                                                 <option>--</option>
@@ -82,7 +76,7 @@
                                                      <br>
 
                                                      <div class="row mb-3">
-                                                      <label class="col-sm-3 col-form-label" for="example-email">Select Mechanic</label>
+                                                      <label class="col-sm-3 col-form-label" for="example-email">ho worked on repairing the cycle?</label>
                                                         <div class="col-sm-9">
                                                             <select  class="form-select selector mb-3 form-control" multiple id="mechanic" name="mechanic[]" required>
                                                                 <option>--</option>
@@ -169,7 +163,7 @@
     
                                                   
                                             <div class="row mb-3">
-                                                <label class="col-sm-3 col-form-label" for="example-password">Duration(mins)</label>
+                                                <label class="col-sm-3 col-form-label" for="example-password">How long did it take you to make the repairs?</label>
                                                
                                                   <div class="col-sm-9">
                                                   
@@ -183,46 +177,54 @@
                                                      <br>
 
                                                      <div class="row mb-3">
-                                                        <label class="col-sm-3 col-form-label" for="example-readonly">Was it fully repaired?</label>
+                                                        <label class="col-sm-3 col-form-label" for="example-readonly">Was the bicycle repaired enough that the rider could continue?</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-select selector mb-3 form-control"  name="status" required>
-                                                                   
-                                                                   
-                                                                    <?php
 
-                                                                                      foreach ($status as $st)
+                                                          <div class="form-check">
 
-                                                     
+                                                                     
+                                                              <input class="form-check-input" type="checkbox" name="status" onclick="onlyOne(this)" id="flexRadioDefault1" <?php if($wah->status==1){ echo "checked";} ?>   value="1">
+                                                              <label class="form-check-label" for="flexRadioDefault1">
+                                                                Yes
+                                                              </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                              <input class="form-check-input" type="checkbox" name="status" onclick="onlyOne(this)" id="flexRadioDefault2"  <?php if($wah->status==2){ echo "checked";} ?>  value="2">
+                                                              <label class="form-check-label" for="flexRadioDefault2">
+                                                               No
+                                                              </label>
+                                                            </div>
 
-                                                                                        { ?>
-
-                                                                                        <option  value="<?php echo $st->status_id; ?>" <?php if($st->status_id==$wah->status){ echo "selected";} ?>><?php echo $st->status_name;  ?></option>
-
-                                                                                   <?php } ?>
-                                                                </select>
                                                         </div>
                                                     </div>
 
                                                     <br>
 
                                                      <div class="row mb-3">
-                                                        <label class="col-sm-3 col-form-label" for="example-readonly">Temporary service?</label>
+                                                        <label class="col-sm-3 col-form-label" for="example-readonly">Were the repairs made temporary or permanent?</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-select selector mb-3 form-control"  name="service" required>
-                                                                   
-                                                                   
-                                                                    <?php
 
-                                                                                      foreach ($service as $ser)
+                                                           <div class="form-check">
 
-                                                     
+                                                                     
+                                                              <input class="form-check-input" type="checkbox"  onclick="onlyTwo(this)"  name="service" id="flexRadioDefault1" <?php if($wah->service==1){ echo "checked";} ?>   value="1">
+                                                              <label class="form-check-label" for="flexRadioDefault1">
+                                                                Permanent
+                                                              </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                              <input class="form-check-input"  onclick="onlyTwo(this)"  type="checkbox" name="service" id="flexRadioDefault2"  <?php if($wah->service==2){ echo "checked";} ?>  value="2">
+                                                              <label class="form-check-label" for="flexRadioDefault2">
+                                                               Temporary
+                                                              </label>
+                                                            </div>
 
-                                                                                        { ?>
 
-                                                                                        <option  value="<?php echo $ser->service_id; ?>" <?php if($ser->service_id==$wah->service){ echo "selected";} ?>><?php echo $ser->service_name;  ?></option>
 
-                                                                                   <?php } ?>
-                                                                </select>
+
+
+
+                                                          
                                                         </div>
                                                     </div>
 

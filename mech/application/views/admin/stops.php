@@ -6,20 +6,13 @@
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
           <div class="breadcrumb-title pe-3">Rest Stops</div>
           <div class="ps-3">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="javascript:;">Admin</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Rest Stops</li>
-              </ol>
-            </nav>
+           
           </div>
          
         </div>
         <!--end breadcrumb-->
         <div class="row">
           <div class="col-xl-9 mx-auto">
-            <h6 class="mb-0 text-uppercase">Stops</h6>
             <span style="float: right; position:relative; right:90px; bottom:30px;"><a class="btn btn-success" data-toggle="modal" data-target="#stopModal"><i class="fa fa-plus"></i>Add Stop</a></span>
             <hr/>
               <div class="card">

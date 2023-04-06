@@ -6,13 +6,7 @@
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
           <div class="breadcrumb-title pe-3">Update Repair Details</div>
           <div class="ps-3">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="javascript:;">Admin</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Update Repair Details</li>
-              </ol>
-            </nav>
+           
           </div>
          
         </div>
@@ -182,52 +176,59 @@
                                             </div>
                                                      <br>
 
-                                                     <div class="row mb-3">
-                                                        <label class="col-sm-3 col-form-label" for="example-readonly">Was it fully repaired?</label>
-                                                        <div class="col-sm-9">
-                                                            <select class="form-select selector mb-3 form-control"  name="status" required>
-                                                                   
-                                                                   
-                                                                    <?php
-
-                                                                                      foreach ($status as $st)
-
                                                      
 
-                                                                                        { ?>
+                                                       <div class="row mb-3">
+                                                        <label class="col-sm-3 col-form-label" for="example-readonly">Was the bicycle repaired enough that the rider could continue?</label>
+                                                        <div class="col-sm-9">
 
-                                                                                        <option  value="<?php echo $st->status_id; ?>" <?php if($st->status_id==$wah->status){ echo "selected";} ?>><?php echo $st->status_name;  ?></option>
+                                                          <div class="form-check">
 
-                                                                                   <?php } ?>
-                                                                </select>
+                                                                     
+                                                              <input class="form-check-input" type="checkbox" name="status" onclick="onlyOne(this)" id="flexRadioDefault1" <?php if($wah->status==1){ echo "checked";} ?>   value="1">
+                                                              <label class="form-check-label" for="flexRadioDefault1">
+                                                                Yes
+                                                              </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                              <input class="form-check-input" type="checkbox" name="status" onclick="onlyOne(this)" id="flexRadioDefault2"  <?php if($wah->status==2){ echo "checked";} ?>  value="2">
+                                                              <label class="form-check-label" for="flexRadioDefault2">
+                                                               No
+                                                              </label>
+                                                            </div>
+
                                                         </div>
                                                     </div>
 
                                                     <br>
 
                                                      <div class="row mb-3">
-                                                        <label class="col-sm-3 col-form-label" for="example-readonly">Temporary service?</label>
+                                                        <label class="col-sm-3 col-form-label" for="example-readonly">Were the repairs made temporary or permanent?</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-select selector mb-3 form-control"  name="service" required>
-                                                                   
-                                                                   
-                                                                    <?php
 
-                                                                                      foreach ($service as $ser)
+                                                           <div class="form-check">
 
-                                                     
+                                                                     
+                                                              <input class="form-check-input" type="checkbox"  onclick="onlyTwo(this)"  name="service" id="flexRadioDefault1" <?php if($wah->service==1){ echo "checked";} ?>   value="1">
+                                                              <label class="form-check-label" for="flexRadioDefault1">
+                                                                Permanent
+                                                              </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                              <input class="form-check-input"  onclick="onlyTwo(this)"  type="checkbox" name="service" id="flexRadioDefault2"  <?php if($wah->service==2){ echo "checked";} ?>  value="2">
+                                                              <label class="form-check-label" for="flexRadioDefault2">
+                                                               Temporary
+                                                              </label>
+                                                            </div>
 
-                                                                                        { ?>
 
-                                                                                        <option  value="<?php echo $ser->service_id; ?>" <?php if($ser->service_id==$wah->service){ echo "selected";} ?>><?php echo $ser->service_name;  ?></option>
 
-                                                                                   <?php } ?>
-                                                                </select>
+
+
+
+                                                          
                                                         </div>
                                                     </div>
-
-
-                                                    <br>
                                                    
                                                   
                                                 

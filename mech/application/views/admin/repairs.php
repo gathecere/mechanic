@@ -6,13 +6,7 @@
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
           <div class="breadcrumb-title pe-3">Repair information</div>
           <div class="ps-3">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="javascript:;">Admin</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Repair information</li>
-              </ol>
-            </nav>
+           
           </div>
          
         </div>
@@ -67,9 +61,9 @@
 
                                                             <th>Repair Time</th>
 
-                                                            <th>Was it fully repaired?</th>
+                                                           <th>Was the bicycle repaired enough that the rider could continue?</th>
 
-                                                             <th>Temporary service?</th>
+                                                             <th>Were the repairs made temporary or permanent?</th>
 
                                                            
                                                             <th>Edit</th>

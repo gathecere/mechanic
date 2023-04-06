@@ -6,13 +6,7 @@
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
           <div class="breadcrumb-title pe-3">Repair information</div>
           <div class="ps-3">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="javascript:;">Manager</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Repair information</li>
-              </ol>
-            </nav>
+          
           </div>
          
         </div>
@@ -21,7 +15,7 @@
 
          <div class="row">
           <div class="col-xl-9 mx-auto">
-            <span style="float: right; position:relative; right:90px; bottom:30px;"><a class="btn btn-success" data-toggle="modal" data-target="#mechanicModal"><i class="fa fa-plus"></i>Add Repair Entry</a></span>
+            <span style="float: right; position:relative; right:90px; bottom:30px;"><a class="btn btn-success" data-toggle="modal" data-target="#mechanicModal"><i class="fa fa-plus"></i>Tell Us About the Cycle Repairs Made</a></span>
             <hr/>
               <div class="card">
                  <div class="card-body">
@@ -67,9 +61,9 @@
 
                                                             <th>Repair Time</th>
 
-                                                            <th>Was it fully repaired?</th>
+                                                            <th>Was the bicycle repaired enough that the rider could continue?</th>
 
-                                                             <th>Temporary service?</th>
+                                                             <th>Were the repairs made temporary or permanent?</th>
 
                                                            
                                                             <th>Edit</th>
@@ -155,7 +149,7 @@
                                             <form method="post" action="<?= base_url('mechanic/update_repair_process'); ?>">
 
                                                   <div class="row mb-3">
-                                                      <label class="col-sm-3 col-form-label" for="example-email">Bib Number(Up to 5)</label>
+                                                      <label class="col-sm-3 col-form-label" for="example-email">What is the rider’s bib number?</label>
                                                         <div class="col-sm-9">
                                                             <input class="form-control" type="number" name="bib_number" min="0" max="55555" required>
                                                         </div>
@@ -163,7 +157,7 @@
                                                     <br>
                                          
                                                     <div class="row mb-3">
-                                                      <label class="col-sm-3 col-form-label" for="example-email">Select Rest Stop</label>
+                                                      <label class="col-sm-3 col-form-label" for="example-email">Where was the repair made?</label>
                                                         <div class="col-sm-9">
                                                             <select  class="form-select selector mb-3 form-control" name="stop" required>
                                                                 <option>--</option>
@@ -183,7 +177,7 @@
                                                      <br>
 
                                                      <div class="row mb-3">
-                                                      <label class="col-sm-3 col-form-label" for="example-email">Select Mechanic</label>
+                                                      <label class="col-sm-3 col-form-label" for="example-email">Who worked on repairing the cycle?</label>
                                                         <div class="col-sm-9">
                                                             <select style="width: 100%;"  class="form-select selector mb-3 form-control" id="mechanic" name="mechanics[]" multiple required>
                                                                 <option>--</option>
@@ -227,7 +221,7 @@
     
                                                   
                                                     <div class="row mb-3">
-                                                        <label class="col-sm-3 col-form-label" for="example-password">Duration(mins)</label>
+                                                        <label class="col-sm-3 col-form-label" for="example-password"> How long did it take you to make the repairs?</label>
                                                        
                                                           <div class="col-sm-9">
                                                           
@@ -241,44 +235,41 @@
                                                      <br>
 
                                                      <div class="row mb-3">
-                                                        <label class="col-sm-3 col-form-label" for="example-readonly">was it fully repaired?</label>
+                                                        <label class="col-sm-3 col-form-label" for="example-readonly">Was the bicycle repaired enough that the rider could continue?</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-select selector mb-3 form-control"  name="status" required>
-                                                                   
-                                                                   
-                                                                    <?php
-
-                                                                                      foreach ($status as $st)
-
-                                                     
-
-                                                                                        { ?>
-
-                                                                                        <option  value="<?php echo $st->status_id; ?>"><?php echo $st->status_name;  ?></option>
-
-                                                                                   <?php } ?>
-                                                                </select>
+                                                            <div class="form-check">
+                                                              <input class="form-check-input" onclick="onlyOne(this)" type="checkbox" name="status" id="flexRadioDefault1" checked value="1">
+                                                              <label class="form-check-label" for="flexRadioDefault1">
+                                                                Yes
+                                                              </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                              <input class="form-check-input" onclick="onlyOne(this)" type="checkbox" name="status" id="flexRadioDefault2" value="2">
+                                                              <label class="form-check-label" for="flexRadioDefault2">
+                                                               No
+                                                              </label>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <br>
 
                                                      <div class="row mb-3">
-                                                        <label class="col-sm-3 col-form-label" for="example-readonly">is it a temporary service</label>
+                                                        <label class="col-sm-3 col-form-label" for="example-readonly">Were the repairs made temporary or permanent?</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-select selector mb-3 form-control"  name="service" required>
-                                                                   
-                                                                   
-                                                                    <?php
 
-                                                                                      foreach ($service as $serv)
-
-                                                     
-
-                                                                                        { ?>
-
-                                                                                        <option  value="<?php echo $serv->service_id; ?>"><?php echo $serv->service_name;  ?></option>
-
-                                                                                   <?php } ?>
-                                                                </select>
+                                                               <div class="form-check">
+                                                              <input class="form-check-input" onclick="onlyTwo(this)" type="checkbox" name="service" id="flexRadioDefault1" checked value="1">
+                                                              <label class="form-check-label" for="flexRadioDefault1">
+                                                                Permanent
+                                                              </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                              <input class="form-check-input" onclick="onlyTwo(this)" type="checkbox" name="service" id="flexRadioDefault2" value="2">
+                                                              <label class="form-check-label" for="flexRadioDefault2">
+                                                               Temporary
+                                                              </label>
+                                                            </div>
+                                                             
                                                         </div>
                                                     </div>
 

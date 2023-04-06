@@ -23,8 +23,33 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
+      <script type="text/javascript">
+         
+           function onlyTwo(checkbox) {
+              var checkboxes = document.getElementsByName('service')
+              checkboxes.forEach((item) => {
+                  if (item !== checkbox) item.checked = false
+              })
+          }
+
+            function onlyOne(checkbox) {
+              var checkboxes = document.getElementsByName('status')
+              checkboxes.forEach((item) => {
+                  if (item !== checkbox) item.checked = false
+              })
+          }
+     </script>
+
+
 
      <script type="text/javascript">
+
+
+
+
+
+
+
           function phoneMask() { 
                 var num = $(this).val().replace(/\D/g,''); 
                 $(this).val(num.substring(0,1) + '(' + num.substring(1,4) + ')' + num.substring(4,7) + '-' + num.substring(7,11)); 

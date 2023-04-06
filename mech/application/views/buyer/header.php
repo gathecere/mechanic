@@ -15,6 +15,17 @@
     <title>Mechanic Panel</title>
 </head>
 <style>
+
+table {
+         overflow-x: scroll;
+         overflow-y:scroll; 
+         display: block;
+       //  min-height: 500px;
+        
+     }
+
+th, td { min-width: 200px;}
+
 body {
     font: 400 15px Lato, sans-serif;
     line-height: 1.8;
@@ -120,7 +131,7 @@ table, td{
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>                        
             </button>
-            <a class="navbar-brand" href="<?= base_url(); ?>"><img src="https://wtsevent.org/faceofamerica/wp-content/uploads/sites/2/2022/02/WTS-FOA-Lockup-Stacked-2color-RGB.gif" alt="LOGO" width="200px" length="100px"></a>
+            <a class="navbar-brand" href="<?= base_url(); ?>"></a>
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
@@ -130,4 +141,8 @@ table, td{
           </div>
         </div>
       </nav>
+        <div class="jumbotron text-center" style="background-image: url('https://wtsevent.org/faceofamerica/wp-content/uploads/sites/2/2022/02/WTS-FOA-Lockup-Stacked-2color-RGB.gif');background-repeat: no-repeat;background-size: cover; background-position: center; height: 700px;">
+       
+       
+      </div>
 
